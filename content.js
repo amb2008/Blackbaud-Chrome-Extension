@@ -12,8 +12,7 @@ function changeHomeStyle(){
     // small outline and white background
     const trs = document.querySelectorAll('tr');
     trs.forEach(tr => {
-      tr.style.border = "0.5px solid " + color1;
-      tr.style.backgroundColor = color1;
+        tr.style.backgroundColor = color1;
     });
 
     // make wider
@@ -69,9 +68,11 @@ function changeHomeStyle(){
 
     // remove numbers from class title
     let tds = document.querySelectorAll('td');
-    tds.forEach(td => {
-        if(td.dataHeading=="Class"){
-            console.log(td)
+    tds.forEach(tdItem => {
+        let dataHeading = tdItem.getAttribute('data-heading');
+        if(dataHeading=="Class"){
+            // figure out a way to not make infinite loop
+            tdItem.innerText = tdItem.innerText.split("-")[0]
         }
     });
 
@@ -149,20 +150,18 @@ function changeHomeStyle(){
     document.body.style.color = color3;
 }
 
-
-// Function to execute when mutations are observed
+// when page loads
 function observeMutations(mutationsList, observer) {
     mutationsList.forEach(mutation => {
-        if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/assignment-center'){
+        console.log(mutation.target.localName)
+        if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/assignment-center' && mutation.target.localName != 'td'){
             changeHomeStyle()
         }
     });
 }
 
-// Create a MutationObserver instance
 const observer = new MutationObserver(observeMutations);
 
-// Start observing mutations in the document body (you can target other elements too)
 observer.observe(document.body, { 
     childList: true, 
     subtree: true 
