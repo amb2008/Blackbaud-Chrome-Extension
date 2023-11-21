@@ -13,6 +13,11 @@ function changeHomeStyle(){
     const trs = document.querySelectorAll('tr');
     trs.forEach(tr => {
         tr.style.backgroundColor = color1;
+
+        // add a line between rows
+        tr.style.borderBottom = '1px solid #f2f2f2'; // Adjust the color as needed
+
+        
     });
 
     // make wider
@@ -83,12 +88,12 @@ function changeHomeStyle(){
         roundHeader.style.borderRadius = "10px"
     });
 
-    // header less space and bigger
-    let bbHeaders = document.querySelectorAll('.bb-tile-header');
-    bbHeaders.forEach(bbHeader => {
-        bbHeader.style.fontSize = '34px';
-        bbHeader.style.marginBottom = '-25px';
-    });
+    // // header less space and bigger
+    // let bbHeaders = document.querySelectorAll('.bb-tile-header');
+    // bbHeaders.forEach(bbHeader => {
+    //     bbHeader.style.fontSize = '34px';
+    //     bbHeader.style.marginBottom = '-25px';
+    // });
 
     // change background color of progress buttons
     let todos = document.querySelectorAll('.label-todo');
@@ -157,6 +162,18 @@ function changeHomeStyle(){
     // dark
     document.body.style.backgroundColor = color1;
     document.body.style.color = color3;
+
+
+    //SCHEDULE
+
+    // remove student schedule header
+    let scheduleHeaders = document.querySelectorAll('.bb-tile-header');
+    scheduleHeaders.forEach(scheduleHeader => {
+        scheduleHeader.style.display = "none"
+    });
+
+    
+
 }
 
 // when page loads
@@ -166,8 +183,13 @@ function observeMutations(mutationsList, observer) {
         if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/assignment-center' && mutation.target.localName != 'td'){
             changeHomeStyle()
         }
+        else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/schedule' && mutation.target.localName != 'td'){
+            changeHomeStyle()
+        }
     });
 }
+
+
 
 const observer = new MutationObserver(observeMutations);
 
