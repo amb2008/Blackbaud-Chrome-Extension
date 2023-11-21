@@ -1,13 +1,15 @@
 // Color theme
-// dark mode
-// var color1 = 'black'
-// var color2 = 'black'
-// var color3 = 'white'
+    // // dark mode
+    // var color1 = 'black'
+    // var color2 = 'black'
+    // var color3 = 'white'
+    // var color4= '#333'
 
-// light mode
-var color1 = 'white'
-var color2 = 'white'
-var color3 = 'black'
+    // light mode
+    var color1 = 'white'
+    var color2 = 'white'
+    var color3 = 'black'
+    var color4 = '#f2f2f2'
 
 
 // Assignments ---------------------------------------------------------------------------------------------
@@ -18,7 +20,7 @@ function changeHomeStyle(){
         tr.style.backgroundColor = color1;
 
         // add a line between rows
-        tr.style.borderBottom = '1px solid #f2f2f2'; // Adjust the color as needed
+        tr.style.borderBottom = '1px solid' + color4;
 
         
     });
