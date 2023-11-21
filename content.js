@@ -96,6 +96,14 @@ function changeHomeStyle(){
         todo.style.backgroundColor = 'purple';
         todo.style.color = color1;
     });
+
+    let overdues = document.querySelectorAll('.label-danger');
+    overdues.forEach(overdue=> {
+        overdue.style.backgroundColor = 'red';
+        overdue.style.color = color1;
+    });
+
+
     let progresses = document.querySelectorAll('.label-warning');
     progresses.forEach(progress => {
         progress.style.backgroundColor = 'orange';
