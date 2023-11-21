@@ -97,9 +97,10 @@ function changeHomeStyle(){
         todo.style.color = color1;
     });
 
+    // change color of overdue buttons
     let overdues = document.querySelectorAll('.label-danger');
     overdues.forEach(overdue=> {
-        overdue.style.backgroundColor = 'red';
+        overdue.style.backgroundColor = '#EF4044';
         overdue.style.color = color1;
     });
 
@@ -111,7 +112,7 @@ function changeHomeStyle(){
     });    
     let dones = document.querySelectorAll('.label-success');
     dones.forEach(done => {
-        done.style.backgroundColor = 'green';
+        done.style.backgroundColor = '#57a828';
         done.style.color = color1;
     });
 
