@@ -93,13 +93,6 @@ function changeHomeStyle(){
         roundHeader.style.borderRadius = "10px"
     });
 
-    // // header less space and bigger
-    // let bbHeaders = document.querySelectorAll('.bb-tile-header');
-    // bbHeaders.forEach(bbHeader => {
-    //     bbHeader.style.fontSize = '34px';
-    //     bbHeader.style.marginBottom = '-25px';
-    // });
-
     // change background color of progress buttons
     let todos = document.querySelectorAll('.label-todo');
     todos.forEach(todo => {
@@ -175,7 +168,6 @@ function changeScheduleStyle(){
     const trs = document.querySelectorAll('tr');
     trs.forEach(tr => {
         tr.style.backgroundColor = color1;
-
         // add a line between rows
         tr.style.borderBottom = '1px solid #f2f2f2'; // Adjust the color as needed
 
@@ -186,6 +178,13 @@ function changeScheduleStyle(){
     const containers = document.querySelectorAll('.container');
     containers.forEach(container => {
       container.style.width = '100vw';
+    });
+
+    // remove blue alert with day
+    const alerts = document.querySelectorAll('.alert')
+    alerts.forEach(alert => {
+      alert.style.opacity = '0';
+      alert.style.marginTop = '-20px';
     });
 
     // remove line at top of assignment center
@@ -219,12 +218,18 @@ function changeScheduleStyle(){
     });
 
     // button style
-    const buttons = document.querySelectorAll('.btn-default');
-    buttons.forEach(button => {
+    const buttonsInner = document.querySelectorAll('.chCal-button-inner');
+    buttonsInner.forEach(button => {
       button.style.backgroundColor = color1;
+      button.style.border = '0.5px solid ' + color3;
       button.style.borderRadius = '10px';
       button.style.color = color3; 
       button.style.marginRight = '10px'
+    });
+    const buttonsOuter = document.querySelectorAll('.chCal-state-default');
+    buttonsOuter.forEach(button => {
+      button.style.backgroundColor = color1;
+      button.style.border = 'none';
     });
 
     // white headers
@@ -233,13 +238,33 @@ function changeScheduleStyle(){
         heading.style.color = color3;
     });
 
+    let h2s = document.querySelectorAll('h2');
+    h2s.forEach(h2 => {
+        h2.style.position = 'absolute';
+        h2.style.top = '-20px';
+    });
+
+    // border around table
+    let table = document.getElementById("accordionSchedules");
+    table.style.border = '1.5px solid ' + color4;
+    table.style.borderTop = '2px solid ' + color3;
+
+
+    // remove ths
+    let ths = document.querySelectorAll('th');
+    ths.forEach(th => {
+        th.style.display = "none"
+    });
+
     // remove numbers from class title
     let tds = document.querySelectorAll('td');
     tds.forEach(tdItem => {
+        tdItem.style.paddingTop = '20px'
+        tdItem.style.height = '40px'
         let dataHeading = tdItem.getAttribute('data-heading');
-        if(dataHeading=="Class"){
+        if(dataHeading=="Activity"){
             // figure out a way to not make infinite loop
-            tdItem.innerText = tdItem.innerText.split("-")[0]
+            tdItem.style.paddingTop = '12px'
         }
     });
 
@@ -249,13 +274,6 @@ function changeScheduleStyle(){
         roundHeader.style.border = '0.5px solid ' + color3;
         roundHeader.style.borderRadius = "10px"
     });
-
-    // // header less space and bigger
-    // let bbHeaders = document.querySelectorAll('.bb-tile-header');
-    // bbHeaders.forEach(bbHeader => {
-    //     bbHeader.style.fontSize = '34px';
-    //     bbHeader.style.marginBottom = '-25px';
-    // });
 
     // change background color of progress buttons
     let todos = document.querySelectorAll('.label-todo');
