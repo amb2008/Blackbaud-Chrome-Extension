@@ -31,6 +31,13 @@ function changeHomeStyle(){
       container.style.width = '100vw';
     });
 
+    // make assignments title bigger
+    let assignmentHeaders = document.querySelectorAll('.bb-tile-header');
+    assignmentHeaders.forEach(assignmentHeader => {
+       assignmentHeader.style.fontSize = "36px"
+       assignmentHeader.style.marginBottom = "-30px"
+    });
+
     // remove line at top of assignment center
     const bbTileTitles = document.querySelectorAll('.bb-tile-title')
     bbTileTitles.forEach(title => {
@@ -66,10 +73,14 @@ function changeHomeStyle(){
     buttons.forEach(button => {
       button.style.backgroundColor = color1;
       button.style.borderRadius = '10px';
+      button.style.border = '0.5px solid ' + color3;
       button.style.color = color3; 
       button.style.marginRight = '10px'
     });
-
+    const buttonsActive = document.querySelectorAll('.btn.active');
+    buttonsActive.forEach(button => {
+      button.style.boxShadow = '0px 0px 2px ' + color3;
+    });
     // white headers
     let headings = document.querySelectorAll('h1, h2, h3, h4, h5, th, span');
     headings.forEach(heading => {
@@ -96,14 +107,14 @@ function changeHomeStyle(){
     // change background color of progress buttons
     let todos = document.querySelectorAll('.label-todo');
     todos.forEach(todo => {
-        todo.style.backgroundColor = 'purple';
+        todo.style.backgroundColor = 'rgb(182, 121, 242)';
         todo.style.color = color1;
     });
 
     // change color of overdue buttons
     let overdues = document.querySelectorAll('.label-danger');
     overdues.forEach(overdue=> {
-        overdue.style.backgroundColor = '#EF4044';
+        overdue.style.backgroundColor = 'rgb(237, 81, 81)';
         overdue.style.color = color1;
     });
 
@@ -273,32 +284,6 @@ function changeScheduleStyle(){
     roundHeaders.forEach(roundHeader => {
         roundHeader.style.border = '0.5px solid ' + color3;
         roundHeader.style.borderRadius = "10px"
-    });
-
-    // change background color of progress buttons
-    let todos = document.querySelectorAll('.label-todo');
-    todos.forEach(todo => {
-        todo.style.backgroundColor = 'purple';
-        todo.style.color = color1;
-    });
-
-    // change color of overdue buttons
-    let overdues = document.querySelectorAll('.label-danger');
-    overdues.forEach(overdue=> {
-        overdue.style.backgroundColor = '#EF4044';
-        overdue.style.color = color1;
-    });
-
-
-    let progresses = document.querySelectorAll('.label-warning');
-    progresses.forEach(progress => {
-        progress.style.backgroundColor = 'orange';
-        progress.style.color = color1;
-    });    
-    let dones = document.querySelectorAll('.label-success');
-    dones.forEach(done => {
-        done.style.backgroundColor = '#57a828';
-        done.style.color = color1;
     });
 
     // remove site nav lower
