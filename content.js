@@ -179,10 +179,7 @@ function changeScheduleStyle(){
     const trs = document.querySelectorAll('tr');
     trs.forEach(tr => {
         tr.style.backgroundColor = color1;
-        // add a line between rows
-        tr.style.borderBottom = '1px solid #f2f2f2'; // Adjust the color as needed
-
-        
+        tr.style.borderBottom = '1px solid #f2f2f2';
     });
 
     // make wider
@@ -257,9 +254,10 @@ function changeScheduleStyle(){
 
     // border around table
     let table = document.getElementById("accordionSchedules");
-    table.style.border = '1.5px solid ' + color4;
-    table.style.borderTop = '2px solid ' + color3;
-
+    if (table != null){
+        table.style.border = '1.5px solid ' + color4;
+        table.style.borderTop = '2px solid ' + color3;
+    }
 
     // remove ths
     let ths = document.querySelectorAll('th');
@@ -274,16 +272,15 @@ function changeScheduleStyle(){
         tdItem.style.height = '40px'
         let dataHeading = tdItem.getAttribute('data-heading');
         if(dataHeading=="Activity"){
-            // figure out a way to not make infinite loop
+            tdItem.innerText = tdItem.innerText.split("-")[0]
             tdItem.style.paddingTop = '12px'
         }
     });
 
-    // round sortbar container
-    let roundHeaders = document.querySelectorAll('.add-existing-items-header');
-    roundHeaders.forEach(roundHeader => {
-        roundHeader.style.border = '0.5px solid ' + color3;
-        roundHeader.style.borderRadius = "10px"
+    let dones = document.querySelectorAll('.label-success');
+    dones.forEach(done => {
+        done.style.backgroundColor = '#57a828';
+        done.style.color = color1;
     });
 
     // remove site nav lower
@@ -335,15 +332,138 @@ function changeScheduleStyle(){
     });
 }
 
+// PROGRESS ---------------------------------------------------------------------------------------------
+function changeProgressStyle(){
+    // small outline and white background except the first row which is the top bar and should stay blue
+    const trs = document.querySelectorAll('.row');
+    for (let i = 1; i < trs.length; i++) {
+        trs[i].style.backgroundColor = color1;
+        trs[i].style.borderBottom = '1px solid' + color4;
+    }
+
+    // make wider
+    const containers = document.querySelectorAll('.container');
+    containers.forEach(container => {
+      container.style.width = '100vw';
+    });
+
+    // make assignments title bigger
+    let assignmentHeaders = document.querySelectorAll('.bb-tile-header');
+    assignmentHeaders.forEach(assignmentHeader => {
+       assignmentHeader.style.fontSize = "36px"
+    });
+
+    // remove line at top of assignment center
+    const bbTileTitles = document.querySelectorAll('.bb-tile-title')
+    bbTileTitles.forEach(title => {
+      title.style.borderTop = 'none';
+      title.style.backgroundColor = color1;
+      title.style.color = color3;
+    });
+
+    const bbTileContents = document.querySelectorAll('.bb-tile-content')
+    bbTileContents.forEach(tile => {
+      tile.style.borderTop = 'none';
+      tile.style.backgroundColor = color1;
+      tile.style.color = color3;
+    });
+
+    // make rows white and remove second row
+    const rows = document.querySelectorAll('.bb-action-bar');
+      if (rows.length >= 2){
+        rows[1].style.display = "none"
+      }
+      rows.forEach(row => {
+      row.style.paddingLeft = "20px";
+      row.style.paddingRight = "20px";
+      row.style.backgroundColor = color1;
+      row.style.color = color3;
+      row.style.border = 'none'
+      row.style.marginTop = '-40px'
+      row.style.paddingBottom = '20px'
+    });
+
+    // button style
+    const buttons = document.querySelectorAll('.btn-default');
+    buttons.forEach(button => {
+      button.style.backgroundColor = color1;
+      button.style.borderRadius = '10px';
+      button.style.border = '0.5px solid ' + color3;
+      button.style.color = color3; 
+      button.style.marginRight = '10px'
+    });
+    const buttonsActive = document.querySelectorAll('.btn.active');
+    buttonsActive.forEach(button => {
+      button.style.boxShadow = '0px 0px 2px ' + color3;
+    });
+    // white headers
+    let headings = document.querySelectorAll('h1, h2, h3, h4, h5, th, span');
+    headings.forEach(heading => {
+        heading.style.color = color3;
+    });
+
+    // round sortbar container
+    let roundHeaders = document.querySelectorAll('.add-existing-items-header');
+    roundHeaders.forEach(roundHeader => {
+        roundHeader.style.border = '0.5px solid ' + color3;
+        roundHeader.style.borderRadius = "10px"
+    });
+
+    // remove site nav lower
+    let lowerBar = document.getElementById("site-nav-lower")
+    lowerBar.style.display = "none"
+
+    // remove space
+    let spacers = document.querySelectorAll('.site-top-spacer-lower-nav');
+    spacers.forEach(spacer => {
+        spacer.style.height = '120px';
+    });
+
+    // top bar black
+    let siteNav = document.getElementById("site-nav")
+    siteNav.style.backgroundColor = color1
+
+    // active color black on header buttons (eg. myday, resources, etc)
+    let triggers = document.querySelectorAll('.subnavtrigger.black-fgc.sky-nav.active');
+    triggers.forEach(trigger => {
+        trigger.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, " + color2 + " 100%)"
+    });
+
+    // hover color black on header buttons (eg. myday, resources, etc)
+    let hoverClass = document.querySelector("#group-header-Classes.subnavtrigger.black-fgc.sky-nav");
+    let hoverGroup = document.querySelector("#group-header-Groups.subnavtrigger.black-fgc.sky-nav");
+    let hoverResources = document.querySelector("#group-header-Resources.black-fgc.sky-nav");
+    let hoverNews = document.querySelector("#group-header-News.subnavtrigger.black-fgc.sky-nav");
+    let hoverCal = document.querySelector("#calendar-subnav.black-fgc.sky-nav");
+    let hoverDirect = document.querySelector("#directory-subnav.subnavtrigger.black-fgc.sky-nav");
+    hoverClass.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, " + color2 + " 100%)";
+    hoverGroup.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    hoverResources.style.backgroundImage = "-webkit-linear-gradient(top, "+ color2 +" 0%, "+ color2 +" 100%)";
+    hoverNews.style.backgroundImage = "-webkit-linear-gradient(top, "+ color2 +" 0%, "+ color2 +" 100%)";
+    hoverCal.style.backgroundImage = "-webkit-linear-gradient(top, "+ color2 +" 0%, "+ color2 +" 100%)";
+    hoverDirect.style.backgroundImage = "-webkit-linear-gradient(top, "+ color2 +" 0%, "+ color2 +" 100%)";
+    // sort icons color
+    let icons = document.querySelectorAll(".sort-icon.p3icon-sortOff");
+    icons.forEach(icon => {
+        icon.style.color = "#007ca6"
+    });
+    // dark
+    document.body.style.backgroundColor = color1;
+    document.body.style.color = color3;
+}
+
+
 // when page loads
 function observeMutations(mutationsList, observer) {
     mutationsList.forEach(mutation => {
-        console.log(mutation.target.localName)
         if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/assignment-center' && mutation.target.localName != 'td'){
             changeHomeStyle()
         }
         else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/schedule' && mutation.target.localName != 'td'){
             changeScheduleStyle()
+        }
+        else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/progress' && mutation.target.localName != 'td'){
+            changeProgressStyle()
         }
     });
 }
