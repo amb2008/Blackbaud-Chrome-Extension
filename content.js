@@ -4,12 +4,14 @@
     // var color2 = 'black'
     // var color3 = 'white'
     // var color4= '#333'
+    // var color5 = '#595959'
 
     // light mode
     var color1 = 'white'
     var color2 = 'white'
     var color3 = 'black'
     var color4 = '#f2f2f2'
+    var color5 = '#c8c8c8'
 
 
 // Assignments ---------------------------------------------------------------------------------------------
@@ -363,14 +365,19 @@ function changeProgressStyle(){
         trs[i].style.borderBottom = '1px solid ' + color4;
     }
 
+    const allProgresses = document.querySelectorAll('#courses.col-md-12');
+    allProgresses.forEach(progress => {
+        progress.style.marginTop = '-20px';
+    })
+
     // small outline on sections
     const sections = document.querySelectorAll('.ch');
     for (let i = 2; i < sections.length; i++) {
         if (i != 4){
-            sections[i].style.border = '2px solid ' + color4;
+            sections[i].style.border = '1px solid ' + color5;
             sections[i].style.borderRadius = '20px';
             sections[i].style.marginBottom = '20px';
-            sections[i].style.boxShadow = '0px 0px 5px ' + color4;
+            sections[i].style.boxShadow = '0px 0px 5px ' + color5;
         }
     }
     // set transparent to not interfere with border
@@ -471,6 +478,13 @@ function changeProgressStyle(){
     buttonsActive.forEach(button => {
       button.style.boxShadow = '0px 0px 2px ' + color3;
     });
+
+    // remove the useless arrow button
+    const arrows = document.querySelectorAll('.btn.btn-default.btn-sm.dropdown-toggle');
+    arrows.forEach(arrow => {
+      arrow.style.display = 'none';
+    });
+
     // white headers
     let headings = document.querySelectorAll('h1, h2, h3, h4, h5, th, span');
     headings.forEach(heading => {
@@ -538,7 +552,7 @@ function observeMutations(mutationsList, observer) {
         else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/schedule' && mutation.target.localName != 'td'){
             changeScheduleStyle()
         }
-        else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/progress' && mutation.target.localName != 'td' && mutation.target.localName != 'div'){
+        else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/progress' && mutation.target.localName != 'td' && mutation.target.classList[0] != 'well'){
             changeProgressStyle()
         }
     });
