@@ -18,11 +18,7 @@ function changeHomeStyle(){
     const trs = document.querySelectorAll('tr');
     trs.forEach(tr => {
         tr.style.backgroundColor = color1;
-
-        // add a line between rows
         tr.style.borderBottom = '1px solid' + color4;
-
-        
     });
 
     // make wider
@@ -334,12 +330,43 @@ function changeScheduleStyle(){
 
 // PROGRESS ---------------------------------------------------------------------------------------------
 function changeProgressStyle(){
+    // style the bar where you pick what grade to look at
+    const years = document.querySelectorAll('.well');
+    years.forEach(year => {
+      year.style.backgroundColor = color1;
+    });
+    const yearRounds = document.querySelectorAll('.well-sm');
+    yearRounds.forEach(round => {
+      round.style.border = 'none';
+      round.style.scale = '1.3';
+      round.style.marginLeft = '200px';
+    });
+    var gradePick = document.getElementById('gradeSelect');
+    gradePick.style.border = 'none';
+    gradePick.style.cursor = 'pointer';
+
     // small outline and white background except the first row which is the top bar and should stay blue
     const trs = document.querySelectorAll('.row');
-    for (let i = 1; i < trs.length; i++) {
+    for (let i = 9; i < trs.length; i++) { // start at 9 to skip rows that should not be restyled
         trs[i].style.backgroundColor = color1;
-        trs[i].style.borderBottom = '1px solid' + color4;
+        trs[i].style.borderBottom = '1px solid ' + color4;
     }
+
+    // small outline on sections
+    const sections = document.querySelectorAll('.ch');
+    for (let i = 2; i < sections.length; i++) {
+        if (i != 4){
+            sections[i].style.border = '2px solid ' + color4;
+            sections[i].style.borderRadius = '20px';
+            sections[i].style.marginBottom = '20px';
+            sections[i].style.boxShadow = '0px 0px 5px ' + color4;
+        }
+    }
+    // set transparent to not interfere with border
+    const courses = document.querySelectorAll('#courses.bb-tile');
+    courses.forEach(course => {
+      course.style.backgroundColor = 'transparent';
+    });
 
     // make wider
     const containers = document.querySelectorAll('.container');
@@ -347,9 +374,46 @@ function changeProgressStyle(){
       container.style.width = '100vw';
     });
 
-    // make assignments title bigger
+    // start progress and attendance collapsed
+    const performance = document.getElementById('performanceCollapse');
+    performance.classList.remove('in');
+    const attendance = document.getElementById('attendanceCollapse');
+    attendance.classList.remove('in');
+
+    // move progress and attendance to top
+    const performanceContainer = document.getElementById('performance');
+    performanceContainer.style.scale = '0.5';
+    performanceContainer.style.marginLeft = '-50px';
+    performanceContainer.style.marginTop = '-30px';
+    const attendanceContainer = document.getElementById('attendance');
+    attendanceContainer.style.scale = '0.45';
+    yearRounds[0].appendChild(performanceContainer);
+    yearRounds[0].appendChild(attendanceContainer);
+
+    // make dropdowns bigger
+    let assignmentDropdowns = document.querySelectorAll('.bb-tile-content-section.clearfix');
+    assignmentDropdowns.forEach(dropdown => {
+        dropdown.style.scale = '2'
+        dropdown.style.marginTop = '80px'
+        dropdown.style.marginLeft = '150px'
+        dropdown.style.marginBottom = '-60px'
+    })
+    let absences = document.querySelectorAll('.col-md-4');
+    absences.forEach(absence => {
+        absence.style.width= '40%'
+    })
+
+    // add a line between rows
+    let bbTiles = document.querySelectorAll('.bb-tile');
+    for (let i = 2; i < bbTiles.length; i++) {
+        bbTiles[i].style.backgroundColor = 'transparent';
+        bbTiles[i].style.borderBottom = '1px solid ' + color4;
+    }
+
+    // make assignments title bigger besides assignments and attendance
     let assignmentHeaders = document.querySelectorAll('.bb-tile-header');
     assignmentHeaders.forEach(assignmentHeader => {
+       assignmentHeader.style.fontSize = "36px"
        assignmentHeader.style.fontSize = "36px"
     });
 
@@ -357,7 +421,7 @@ function changeProgressStyle(){
     const bbTileTitles = document.querySelectorAll('.bb-tile-title')
     bbTileTitles.forEach(title => {
       title.style.borderTop = 'none';
-      title.style.backgroundColor = color1;
+      title.style.backgroundColor = 'transparent';
       title.style.color = color3;
     });
 
@@ -456,13 +520,14 @@ function changeProgressStyle(){
 // when page loads
 function observeMutations(mutationsList, observer) {
     mutationsList.forEach(mutation => {
+        document.body.style.overflowX = 'hidden';
         if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/assignment-center' && mutation.target.localName != 'td'){
             changeHomeStyle()
         }
         else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/schedule' && mutation.target.localName != 'td'){
             changeScheduleStyle()
         }
-        else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/progress' && mutation.target.localName != 'td'){
+        else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/progress' && mutation.target.localName != 'td' && mutation.target.localName != 'div'){
             changeProgressStyle()
         }
     });
