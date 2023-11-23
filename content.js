@@ -31,9 +31,12 @@ function changeHomeStyle(){
 
     // make assignments title bigger
     let assignmentHeaders = document.querySelectorAll('.bb-tile-header');
+    const date = document.getElementById('small-date-display-label');
     assignmentHeaders.forEach(assignmentHeader => {
        assignmentHeader.style.fontSize = "36px"
-       assignmentHeader.style.marginBottom = "-30px"
+       if (date.innerText.length != 0){ // check if there is a date so it so the top can be adjusted
+        assignmentHeader.style.marginBottom = "-30px"
+       }
     });
 
     // remove line at top of assignment center
@@ -545,6 +548,7 @@ function changeProgressStyle(){
 // when page loads
 function observeMutations(mutationsList, observer) {
     mutationsList.forEach(mutation => {
+        console.log(mutation.target.id)
         document.body.style.overflowX = 'hidden';
         if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/assignment-center' && mutation.target.localName != 'td'){
             changeHomeStyle()
