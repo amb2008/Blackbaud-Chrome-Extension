@@ -334,6 +334,7 @@ function changeProgressStyle(){
     const years = document.querySelectorAll('.well');
     years.forEach(year => {
       year.style.backgroundColor = color1;
+      year.style.boxShadow = "none";
     });
     const yearRounds = document.querySelectorAll('.well-sm');
     yearRounds.forEach(round => {
@@ -344,6 +345,16 @@ function changeProgressStyle(){
     var gradePick = document.getElementById('gradeSelect');
     gradePick.style.border = 'none';
     gradePick.style.cursor = 'pointer';
+    // lower arrows for performance and attendance only
+    const tools = document.querySelectorAll('.bb-tile-tools');
+    for (let i = 0; i < 2; i++) {
+      tools[i].style.marginTop = '10px';
+    }
+    // make arrows black
+    const chevrons = document.querySelectorAll('.bb-tile-chevron, .bb-tile-settings');
+    chevrons.forEach(chevron => {
+      chevron.style.color = color3;
+    });
 
     // small outline and white background except the first row which is the top bar and should stay blue
     const trs = document.querySelectorAll('.row');
