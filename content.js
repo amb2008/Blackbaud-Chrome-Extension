@@ -88,8 +88,8 @@ function changeHomeStyle(){
     const date = document.getElementById('small-date-display-label');
     assignmentHeaders.forEach(assignmentHeader => {
        assignmentHeader.style.fontSize = "36px"
-       if (date.innerText.length != 0){ // check if there is a date so it so the top can be adjusted
-        assignmentHeader.style.marginBottom = "-30px"
+       if (date.innerText){ // check if there is a date so it so the top can be adjusted
+            assignmentHeader.style.marginBottom = "-30px"
        }
     });
 
@@ -143,8 +143,6 @@ function changeHomeStyle(){
         overdue.style.backgroundColor = 'rgb(237, 81, 81)';
         overdue.style.color = color1;
     });
-
-
     let progresses = document.querySelectorAll('.label-warning');
     progresses.forEach(progress => {
         progress.style.backgroundColor = 'orange';
@@ -170,6 +168,15 @@ function changeHomeStyle(){
     let icons = document.querySelectorAll(".sort-icon.p3icon-sortOff");
     icons.forEach(icon => {
         icon.style.color = "#007ca6"
+    });
+
+    // remove numbers from class title
+    let tds = document.querySelectorAll('td');
+    tds.forEach(tdItem => {
+        let dataHeading = tdItem.getAttribute('data-heading');
+        if(dataHeading=="Class"){
+            tdItem.innerText = tdItem.innerText.split("-")[0]
+        }
     });
 }
 
@@ -512,23 +519,31 @@ function changeTopicsStyle(){
 // when page loads
 function observeMutations(mutationsList, observer) {
     mutationsList.forEach(mutation => {
-        changeConstantStyle()
         if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/assignment-center' && mutation.target.localName != 'td'){
+            changeConstantStyle()
             changeHomeStyle()
         }
         else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/schedule' && mutation.target.localName != 'td'){
+            changeConstantStyle()
             changeScheduleStyle()
         }
         else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/progress' && mutation.target.localName != 'td' && mutation.target.classList[0] != 'well'){
+            changeConstantStyle()
             changeProgressStyle()
         }
         else if (window.location.href.includes('bulletinboard') && mutation.target.classList[0] != 'bb-page-heading'){
+            changeConstantStyle()
             changeBulletinStyle()
         }
         else if (window.location.href.includes('topics') && mutation.target.classList[0] != 'bb-page-heading'){
+            changeConstantStyle()
             changeTopicsStyle()
         }
     });
+}
+
+Window.onload = function() {
+    console.log(window.location.href)
 }
 
 
