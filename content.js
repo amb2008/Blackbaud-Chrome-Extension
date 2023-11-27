@@ -304,6 +304,11 @@ function changeScheduleStyle(){
 
 // PROGRESS ---------------------------------------------------------------------------------------------
 function changeProgressStyle(){
+  // remove files from progress
+  let file = document.getElementById("files")
+  file.style.display = "none"
+
+
     // style the bar where you pick what grade to look at
     const years = document.querySelectorAll('.well');
     years.forEach(year => {
