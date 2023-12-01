@@ -25,12 +25,18 @@ function changeConstantStyle(){
     hoverClasses.forEach(hoverClass => {
         hoverClass.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, " + color2 + " 100%)";
     })
-    hoverGroup.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
-    hoverResources.style.backgroundImage = "-webkit-linear-gradient(top, "+ color2 +" 0%, "+ color2 +" 100%)";
-    hoverNews.style.backgroundImage = "-webkit-linear-gradient(top, "+ color2 +" 0%, "+ color2 +" 100%)";
-    hoverCal.style.backgroundImage = "-webkit-linear-gradient(top, "+ color2 +" 0%, "+ color2 +" 100%)";
-    hoverDirect.style.backgroundImage = "-webkit-linear-gradient(top, "+ color2 +" 0%, "+ color2 +" 100%)";
-
+    if (hoverGroup){
+        hoverGroup.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    } if (hoverResources){
+        hoverResources.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    } if (hoverNews){ 
+        hoverNews.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    } if (hoverCal){
+        hoverCal.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    } if (hoverDirect){
+        hoverDirect.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    }
+    
     // body style
     document.body.style.backgroundColor = color1;
     document.body.style.color = color3;
@@ -41,6 +47,20 @@ function changeConstantStyle(){
     headings.forEach(heading => {
         heading.style.color = color3;
     });
+
+    let headings2 = document.querySelectorAll('h2');
+    headings2.forEach(heading => {        
+        heading.style.fontFamily = 'Poppins, sans-serif';
+        heading.style.cursor = 'default';
+    })
+
+    // round subnavs
+    let subnavs = document.querySelectorAll('.subnav');
+    subnavs.forEach(subnav => {
+        subnav.style.borderRadius = '10px';
+        subnav.style.border = '0.5px solid ' + color3;
+        subnav.style.boxShadow = '0px 0px 5px ' + color5;
+    })
 
     // make wider
     const containers = document.querySelectorAll('.container');
@@ -306,7 +326,9 @@ function changeScheduleStyle(){
 function changeProgressStyle(){
   // remove files from progress
   let file = document.getElementById("files")
-  file.style.display = "none"
+  if (file){
+    file.style.display = "none"
+  }
 
 
     // style the bar where you pick what grade to look at
@@ -520,19 +542,253 @@ function changeTopicsStyle(){
     })
 }
 
+// TOPICS --------------------------------------------------------------------------------------------- 
+function changeResourceStyle(){
+    // remove line at top of assignment center
+    const bbTileTitles = document.querySelectorAll('.bb-tile-title')
+    bbTileTitles.forEach(title => {
+      title.style.borderTop = 'none';
+      title.style.backgroundColor = color1;
+      title.style.color = color3;
+    //   title.innerText = 'Resources'
+    });
+
+    // make assignments title bigger
+    let headers = document.querySelectorAll('.bb-tile-header');
+    headers.forEach(header => {
+       header.style.fontSize = "36px"
+       header.innerText = 'Resources'
+    });
+
+    // make heavier title
+    let descriptions = document.querySelectorAll('h3');
+    descriptions.forEach(description => {
+        description.style.fontWeight = '100'
+    })
+
+    // remove border from resources
+    let tiles = document.querySelectorAll('.whiteContainer1');
+    tiles.forEach(tile => {
+        tile.style.padding = '10px'
+        tile.style.borderRadius = '20px'
+        tile.style.borderRadius = '20px'
+        tile.style.border = '1px solid ' + color4
+        tile.addEventListener('mouseenter', function(){
+            tile.style.border = '1px solid rgb(123, 162, 224)'
+            tile.style.boxShadow = '0px 0px 5px rgb(123, 162, 224)'
+        })
+        tile.addEventListener('mouseleave', function(){
+            tile.style.boxShadow = '0px 0px 0px black'
+            tile.style.border = '1px solid ' + color4
+        })
+    });
+
+    // center tiles and make bigger
+    let container = document.getElementById('board-container');
+    if (container){
+        container.style.marginLeft = '130px'
+        container.style.scale = '1.2'
+        container.style.marginTop = '200px'
+    }
+}
+
+// CLASS ASSIGNMENTS ---------------------------------------------------------------------------------------------
+function changeClassAssignmentsStyle(){
+    // remove numbers from title
+    let titles = document.querySelectorAll('.bb-page-heading');
+    titles.forEach(title => {
+        title.innerText = title.innerText.split("-")[0]
+    });
+
+    // small outline and white background
+    const trs = document.querySelectorAll('tr');
+    trs.forEach(tr => {
+        tr.style.backgroundColor = color1;
+        tr.style.borderBottom = '1px solid' + color4;
+    });
+
+    // remove line at top of assignment center
+    const bbTileTitles = document.querySelectorAll('.bb-tile-title')
+    bbTileTitles.forEach(title => {
+      title.style.borderTop = 'none';
+      title.style.backgroundColor = color1;
+      title.style.color = color3;
+    });
+
+    // change background color of progress buttons
+    let todos = document.querySelectorAll('.label-todo');
+    todos.forEach(todo => {
+        todo.style.backgroundColor = 'rgb(182, 121, 242)';
+        todo.style.color = color1;
+    });
+
+    // view text further left
+    let viewTexts = document.querySelectorAll('.pull-left');
+    viewTexts.forEach(viewText => {
+        viewText.style.marginLeft = '-15px'
+        viewText.style.opacity = '0'
+    })
+
+    // remove date range
+    let dateRange = document.querySelectorAll('.assignment-date-range-filter');
+    dateRange.forEach(date => {
+        date.style.display = 'none'
+    })
+
+    // remove navtab border and add radius
+    let navTabs = document.querySelectorAll('.nav.nav-tabs');
+    navTabs.forEach(navTab => {
+        navTab.style.borderRadius = '20px'
+        navTab.style.borderBottomRightRadius = '0px'
+        navTab.style.borderBottomLeftRadius = '0px'
+    })
+
+    // move navtabs up
+    let navTabContainers = document.querySelectorAll('.bb-tile-content');
+    navTabContainers.forEach(tab => {
+        tab.style.marginTop = '-150px'
+        tab.style.border = 'none'
+    })
+
+    // remove date tab
+    let allContainers = document.querySelectorAll('.bb-tile');
+    allContainers[1].style.display = 'none'
+
+    // change color of overdue buttons
+    let overdues = document.querySelectorAll('.label-danger');
+    overdues.forEach(overdue=> {
+        overdue.style.backgroundColor = 'rgb(237, 81, 81)';
+        overdue.style.color = color1;
+    });
+    let progresses = document.querySelectorAll('.label-warning');
+    progresses.forEach(progress => {
+        progress.style.backgroundColor = 'orange';
+        progress.style.color = color1;
+    });    
+    let dones = document.querySelectorAll('.label-success');
+    dones.forEach(done => {
+        done.style.backgroundColor = '#57a828';
+        done.style.color = color1;
+    });
+
+    // remove numbers from class title
+    let tds = document.querySelectorAll('td');
+    tds.forEach(tdItem => {
+        let dataHeading = tdItem.getAttribute('data-heading');
+        if(dataHeading=="Class"){
+            tdItem.innerText = tdItem.innerText.split("-")[0]
+        }
+    });
+}
+
+// ROSTER --------------------------------------------------------------------------------------------- 
+let removed = false
+window.onhashchange = function() { // every time roster is loaded make sure the search bar is removed
+    removed = false
+}
+function changeRosterStyle(){
+    // remove numbers from title
+    let titles = document.querySelectorAll('.bb-page-heading');
+    titles.forEach(title => {
+        title.innerText = title.innerText.split("-")[0]
+    });
+
+    // style the 'read full description' button
+    let containers = document.querySelectorAll('.bb-card');
+    containers.forEach(container => {
+        container.style.borderRadius = '15px'
+    })
+
+    // remove scrollbar
+    let scrollbars = document.querySelectorAll('.bb-card-content');
+    scrollbars.forEach(scrollbar => {
+        scrollbar.style.overflow = 'hidden'
+    })
+
+    // remove search bar
+    const parentElement = document.getElementById('academicclassmaincontainer');
+    const firstChildDiv = parentElement.querySelector('div');
+    if (firstChildDiv && !removed) {
+        firstChildDiv.style.display = 'none';
+        removed = true
+    }
+}
+
+// ASSIGNMENTS ---------------------------------------------------------------------------------------------
+function changeAssignmentsStyle(){
+    // navbar buttons
+    let hoverClasses = document.querySelectorAll(".root-nav-item.black-fgc.ignore-nav");
+    let hoverGroup = document.querySelector("#group-header-Groups.root-nav-item.black-fgc.ignore-nav");
+    let hoverResources = document.querySelector("#group-header-Resources.root-nav-item.black-fgc");
+    let hoverNews = document.querySelector("#group-header-News.root-nav-item.black-fgc.ignore-nav");
+    let hoverCal = document.querySelector("#calendar-subnav.root-nav-item.black-fgc");
+    let hoverDirect = document.querySelector("#directory-subnav.root-nav-item.black-fgc");
+    hoverClasses.forEach(hoverClass => {
+        hoverClass.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, " + color2 + " 100%)";
+    })
+    if (hoverGroup){
+        hoverGroup.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    } if (hoverResources){
+        hoverResources.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    } if (hoverNews){ 
+        hoverNews.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    } if (hoverCal){
+        hoverCal.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    } if (hoverDirect){
+        hoverDirect.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+    }
+
+    // white bar
+    let siteNav = document.getElementById("site-nav-container")
+    siteNav.classList.remove("sec-15-bgc")
+
+    // move buttons left
+    let buttonBars = document.querySelectorAll('.topnav');
+    buttonBars.forEach(buttonBar => {
+        buttonBar.style.marginLeft = '-120px'
+    })
+
+    // remove print
+    let print = document.querySelector('.sky-btn-default');
+    if (print){
+        print.style.display = 'none'
+    }
+
+    // less padding
+    let boxes = document.querySelectorAll('.sky-padding-even-md');
+    boxes.forEach(box => { 
+        box.style.padding = '0px'
+        box.style.paddingTop = '10px'
+    })
+
+    // round sections
+    let sections = document.querySelectorAll('.sky-box');
+    sections.forEach(section => {
+        section.style.borderRadius = '20px'
+        section.style.border = '0.5px solid ' + color5
+    })
+
+    // remove bottom border from head section
+    let heads = document.querySelectorAll('.sky-border-bottom-dark');
+    heads.forEach(head => {
+        head.style.borderBottom = 'none'
+        head.style.paddingTop = '10px'
+    })
+}
+
 
 // when page loads
 function observeMutations(mutationsList, observer) {
     mutationsList.forEach(mutation => {
-        if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/assignment-center' && mutation.target.localName != 'td'){
+        if (window.location.href.includes('assignment-center') && mutation.target.localName != 'td'){
             changeConstantStyle()
             changeHomeStyle()
         }
-        else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/schedule' && mutation.target.localName != 'td'){
+        else if (window.location.href.includes('schedule') && mutation.target.localName != 'td'){
             changeConstantStyle()
             changeScheduleStyle()
         }
-        else if (window.location.href == 'https://dalton.myschoolapp.com/app/student#studentmyday/progress' && mutation.target.localName != 'td' && mutation.target.classList[0] != 'well'){
+        else if (window.location.href.includes('progress') && mutation.target.localName != 'td' && mutation.target.classList[0] != 'well'){
             changeConstantStyle()
             changeProgressStyle()
         }
@@ -543,6 +799,22 @@ function observeMutations(mutationsList, observer) {
         else if (window.location.href.includes('topics') && mutation.target.classList[0] != 'bb-page-heading'){
             changeConstantStyle()
             changeTopicsStyle()
+        }
+        else if (window.location.href.includes('resourceboard') && mutation.target.classList[0] != 'bb-tile-header'){
+            changeConstantStyle()
+            changeResourceStyle()
+        }  
+        else if (window.location.href.includes('assignments') && mutation.target.classList[0] != 'bb-page-heading'){
+            changeConstantStyle()
+            changeClassAssignmentsStyle()
+        }
+        else if (window.location.href.includes('roster') && mutation.target.classList[0] != 'bb-page-heading'){
+            changeConstantStyle()
+            changeRosterStyle()
+        }
+        else if (window.location.href.includes('assignment-student-view') && mutation.target.classList[0] != 'bb-tile-header'){
+            changeConstantStyle()
+            changeAssignmentsStyle()
         }
     });
 }
