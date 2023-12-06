@@ -5,6 +5,7 @@
     // var color3 = 'white'
     // var color4= '#333'
     // var color5 = '#595959'
+    // var color6 = '#6989e0'
 
     // light mode
     var color1 = 'white'
@@ -12,6 +13,8 @@
     var color3 = 'black'
     var color4 = '#f2f2f2'
     var color5 = '#c8c8c8'
+    var color6 = '#6989e0'
+    var color7 = 'rgba(105, 137, 224, 0.1)'
 
 // CONSTANT STYLE ---------------------------------------------------------------------------------------------
 function changeConstantStyle(){
@@ -92,6 +95,11 @@ function changeConstantStyle(){
         trigger.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, " + color2 + " 100%)"
     });
 
+    let images = document.querySelectorAll('img');
+    images.forEach(image => {
+        image.style.borderRadius = '20px'
+    })
+
 }
 
 // ASSIGNMENTS ---------------------------------------------------------------------------------------------
@@ -101,6 +109,15 @@ function changeHomeStyle(){
     trs.forEach(tr => {
         tr.style.backgroundColor = color1;
         tr.style.borderBottom = '1px solid' + color4;
+        if (trs[0] != tr){
+            tr.addEventListener('mouseenter', function(){
+                tr.style.backgroundColor = color7;
+                tr.style.borderRadius = '20px'
+            })
+            tr.addEventListener('mouseleave', function(){
+                tr.style.backgroundColor = color1;
+            })
+        }
     });
 
     // make assignments title bigger
@@ -493,8 +510,11 @@ function changeBulletinStyle(){
     // round bulletin board sections
     let sections = document.querySelectorAll('.thumbnail');
     sections.forEach(section => {
-        section.style.border = '1px solid ' + color5;
-        section.style.borderRadius = '20px';
+        section.style.marginTop = '10px'
+        section.style.border = '0.5px solid ' + color6;
+        section.style.borderRadius = '15px';
+        section.style.boxShadow = '0px 0px 5px ' + color5;
+        section.style.padding = '20px';
     });
 
     // remove numbers from title
@@ -605,6 +625,14 @@ function changeClassAssignmentsStyle(){
     trs.forEach(tr => {
         tr.style.backgroundColor = color1;
         tr.style.borderBottom = '1px solid' + color4;
+        if (trs[0] != tr){
+            tr.addEventListener('mouseenter', function(){
+                tr.style.backgroundColor = color7;
+            })
+            tr.addEventListener('mouseleave', function(){
+                tr.style.backgroundColor = color1;
+            })
+        }
     });
 
     // remove line at top of assignment center
@@ -765,7 +793,13 @@ function changeAssignmentsStyle(){
     let sections = document.querySelectorAll('.sky-box');
     sections.forEach(section => {
         section.style.borderRadius = '20px'
-        section.style.border = '0.5px solid ' + color5
+        section.style.border = '0.25px solid #263f6f'
+    })
+
+    // shadow color
+    let shadows = document.querySelectorAll('.sky-shadow');
+    shadows.forEach(shadow => {
+        shadow.style.boxShadow = '0px 0px 12px -6px ' + color6
     })
 
     // remove bottom border from head section
@@ -776,6 +810,48 @@ function changeAssignmentsStyle(){
     })
 }
 
+// NEWS ---------------------------------------------------------------------------------------------
+function changeNewsStyle(){
+    let navBar = document.getElementById("site-nav-lower")
+    if (navBar){
+        navBar.style.display = "none"
+    }
+}
+
+// DIRECTORY ---------------------------------------------------------------------------------------------
+function changeDirectoryStyle(){
+    let navBar = document.getElementById("site-nav-lower")
+    if (navBar){
+        navBar.style.display = "none"
+    }
+
+    //  change color of search directory bar
+    let searchBars = document.querySelectorAll('.subnavbar');
+    searchBars.forEach(searchBar => {
+        searchBar.style.background = 'transparent';
+        searchBar.style.border = 'none';
+        searchBar.style.borderRadius = '10px';
+        searchBar.classList.remove('sec-15-bgc');
+    })
+
+    // active button color
+    let activeButtons = document.querySelectorAll('.subnavbar .nav > .active > a');
+    activeButtons.forEach(activeButton => {
+        activeButton.style.backgroundImage = 'linear-gradient(to bottom, ' + color2 + ' 0%, ' + color2 + ' 100%)';
+    })
+
+    // remove all fields button
+    let allFieldsButton = document.getElementById('all-fields-button');
+    if (allFieldsButton){
+        allFieldsButton.style.display = 'none'
+    }
+
+    // remove border from bb title
+    let bbTitles = document.querySelectorAll('.bb-tile-title');
+    bbTitles.forEach(bbTitle => {
+        bbTitle.style.border = 'none'
+    })
+}
 
 // when page loads
 function observeMutations(mutationsList, observer) {
@@ -815,6 +891,14 @@ function observeMutations(mutationsList, observer) {
         else if (window.location.href.includes('assignment-student-view') && mutation.target.classList[0] != 'bb-tile-header'){
             changeConstantStyle()
             changeAssignmentsStyle()
+        }
+        else if (window.location.href.includes('Scoreboard') || window.location.href.includes('archive') || window.location.href.includes('activitystream') || window.location.href.includes('featuredcontent')){
+            changeConstantStyle()
+            changeNewsStyle()
+        }
+        else if (window.location.href.includes('directory')){
+            changeConstantStyle()
+            changeDirectoryStyle()
         }
     });
 }
