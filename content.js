@@ -14,7 +14,17 @@
     var color4 = '#f2f2f2'
     var color5 = '#c8c8c8'
     var color6 = '#6989e0'
-    var color7 = 'rgba(105, 137, 224, 0.1)'
+    var color7 = 'rgba(246, 246, 246)'
+
+const style = document.createElement('style');
+style.textContent = `
+    @font-face {
+        font-family: 'Geist';
+        src: url("https://pham.codes/d/GeistVF.woff2") format("woff2");
+    }
+`;
+
+document.head.appendChild(style);
 
 // CONSTANT STYLE ---------------------------------------------------------------------------------------------
 function changeConstantStyle(){
@@ -53,7 +63,7 @@ function changeConstantStyle(){
 
     let headings2 = document.querySelectorAll('h2');
     headings2.forEach(heading => {        
-        heading.style.fontFamily = 'Poppins, sans-serif';
+        heading.style.fontFamily = 'sans-serif';
         heading.style.cursor = 'default';
     })
 
@@ -170,24 +180,24 @@ function changeHomeStyle(){
     // change background color of progress buttons
     let todos = document.querySelectorAll('.label-todo');
     todos.forEach(todo => {
-        todo.style.backgroundColor = 'rgb(182, 121, 242)';
+        todo.style.backgroundColor = 'rgb(193, 181, 255)';
         todo.style.color = color1;
     });
 
     // change color of overdue buttons
     let overdues = document.querySelectorAll('.label-danger');
     overdues.forEach(overdue=> {
-        overdue.style.backgroundColor = 'rgb(237, 81, 81)';
+        overdue.style.backgroundColor = 'rgb(247, 111, 111)';
         overdue.style.color = color1;
     });
     let progresses = document.querySelectorAll('.label-warning');
     progresses.forEach(progress => {
-        progress.style.backgroundColor = 'orange';
+        progress.style.backgroundColor = '#fbb85f';
         progress.style.color = color1;
     });    
     let dones = document.querySelectorAll('.label-success');
     dones.forEach(done => {
-        done.style.backgroundColor = '#57a828';
+        done.style.backgroundColor = 'rgb(93, 168, 95)';
         done.style.color = color1;
     });
 
@@ -200,6 +210,51 @@ function changeHomeStyle(){
     spacers.forEach(spacer => {
         spacer.style.height = '120px';
     });
+
+    // remove space
+    let statuses = document.querySelectorAll('.btn.btn-link');
+    statuses.forEach(status => {
+        status.style.height = '40px';
+        status.style.marginTop = '5px';
+        status.style.width = 'auto';
+        status.style.padding = '10px';
+        status.style.paddingLeft = '10px';
+        status.style.border = '0.5px solid ' + color5;
+        status.style.color = color3;
+        status.style.borderRadius = '10px';
+        status.style.transition = '0.2s';
+        status.style.textDecoration = 'none';
+        status.addEventListener('mouseenter', function(){
+            status.style.backgroundColor = color4;
+        })
+        status.addEventListener('mouseleave', function(){
+            status.style.backgroundColor = color1;
+        })
+    });
+
+    let submits = document.querySelectorAll('a');
+    submits.forEach(submit => {
+        if (submit.innerText.includes('Submit')){
+            submit.style.position = 'relative';
+            submit.style.height = '40px';
+            submit.style.top = '12.5px';
+            submit.style.width = 'auto';
+            submit.style.padding = '10px';
+            submit.style.paddingLeft = '2.5vw';
+            submit.style.paddingRight = '2.5vw';
+            submit.style.border = '0.5px solid ' + color5;
+            submit.style.color = color3;
+            submit.style.borderRadius = '10px';
+            submit.style.transition = '0.2s';
+            submit.style.textDecoration = 'none';
+            submit.addEventListener('mouseenter', function(){
+                submit.style.backgroundColor = color4;
+            })
+            submit.addEventListener('mouseleave', function(){
+                submit.style.backgroundColor = color1;
+            })
+        }
+    })
 
     // sort icons color
     let icons = document.querySelectorAll(".sort-icon.p3icon-sortOff");
