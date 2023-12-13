@@ -86,13 +86,21 @@ function changeConstantStyle(){
     buttons.forEach(button => {
       button.style.backgroundColor = color1;
       button.style.borderRadius = '10px';
-      button.style.border = '0.5px solid ' + color3;
+      button.style.border = '1px solid ' + color5;
       button.style.color = color3; 
       button.style.marginRight = '10px'
+      button.style.transition = '0.2s';
+      button.addEventListener('mouseenter', function(){
+        button.style.backgroundColor = color4;
+      })
+      button.addEventListener('mouseleave', function(){
+        button.style.backgroundColor = color1;
+      })
     });
     const buttonsActive = document.querySelectorAll('.btn.active');
     buttonsActive.forEach(button => {
-      button.style.boxShadow = '0px 0px 2px ' + color3;
+      button.style.boxShadow = 'none';
+      button.style.backgroundColor = color4;
     });
 
     // top bar black
@@ -135,10 +143,45 @@ function changeHomeStyle(){
     const date = document.getElementById('small-date-display-label');
     assignmentHeaders.forEach(assignmentHeader => {
        assignmentHeader.style.fontSize = "36px"
+       assignmentHeader.style.fontWeight = "320"
        if (date.innerText){ // check if there is a date so it so the top can be adjusted
-            assignmentHeader.style.marginBottom = "-30px"
+            assignmentHeader.style.marginBottom = "-20px"
+            date.style.marginTop = "9px"
+            date.style.fontSize = "24px"
+            date.style.paddingLeft = "2px"
+            date.style.fontWeight = "300"
        }
     });
+
+    // move daterange container
+    let toolbarContainer = document.querySelectorAll('.col-md-5');
+    toolbarContainer.forEach(toolbar => {
+        toolbar.style.marginLeft = '-2vw'
+    })
+
+    // move secondary daterange container
+    let toolbarContainer2 = document.querySelectorAll('.col-md-4');
+    toolbarContainer2.forEach(toolbar => {
+        toolbar.style.position = 'absolute'
+        toolbar.style.left = '90vw'
+        toolbar.style.width = 'auto'
+    })
+
+    // remove useless buttons
+    let uselessButtons = document.querySelectorAll('.btn-group.btn-group-sm.pull-right');
+    uselessButtons.forEach(button => {
+        button.style.display = 'none'
+    })
+
+    // change date range arrow buttons
+    let leftArrow = document.getElementById('previous-button');
+    let rightArrow = document.getElementById('next-button');
+    if (leftArrow && rightArrow){
+        leftArrow.style.border = 'none'
+        leftArrow.style.transform = 'scaleY(1.5)'
+        rightArrow.style.border = 'none'
+        rightArrow.style.transform = 'scaleY(1.5)'
+    }
 
     // remove line at top of assignment center
     const bbTileTitles = document.querySelectorAll('.bb-tile-title')
@@ -180,7 +223,7 @@ function changeHomeStyle(){
     // change background color of progress buttons
     let todos = document.querySelectorAll('.label-todo');
     todos.forEach(todo => {
-        todo.style.backgroundColor = 'rgb(193, 181, 255)';
+        todo.style.backgroundColor = 'rgb(155, 130, 245)';
         todo.style.color = color1;
     });
 
@@ -221,7 +264,7 @@ function changeHomeStyle(){
         status.style.paddingLeft = '10px';
         status.style.border = '0.5px solid ' + color5;
         status.style.color = color3;
-        status.style.borderRadius = '10px';
+        status.style.borderRadius = '15px';
         status.style.transition = '0.2s';
         status.style.textDecoration = 'none';
         status.addEventListener('mouseenter', function(){
@@ -232,6 +275,15 @@ function changeHomeStyle(){
         })
     });
 
+   let headRights = document.querySelectorAll('.table, .table-sky, thead, tr, th');
+   headRights.forEach(headRight => {
+    headRight.style.borderRight = 'none';
+    headRight.style.borderTop = 'none';
+    headRight.style.borderLeft = 'none';
+    headRight.style.marginTop = '15px';
+   })
+
+   
     let submits = document.querySelectorAll('a');
     submits.forEach(submit => {
         if (submit.innerText.includes('Submit')){
@@ -244,7 +296,7 @@ function changeHomeStyle(){
             submit.style.paddingRight = '2.5vw';
             submit.style.border = '0.5px solid ' + color5;
             submit.style.color = color3;
-            submit.style.borderRadius = '10px';
+            submit.style.borderRadius = '15px';
             submit.style.transition = '0.2s';
             submit.style.textDecoration = 'none';
             submit.addEventListener('mouseenter', function(){
@@ -257,9 +309,26 @@ function changeHomeStyle(){
     })
 
     // sort icons color
-    let icons = document.querySelectorAll(".sort-icon.p3icon-sortOff");
+    let icons = document.querySelectorAll(".sort-icon.p3icon-sortOff, .p3icon-sortDown");
     icons.forEach(icon => {
-        icon.style.color = "#007ca6"
+        icon.style.display = "none" 
+    });
+
+    // sort text color
+    let sorts = document.querySelectorAll(".assignment-table-sort.muted, .assignment-table-sort.sort-active");
+    sorts.forEach(sort => {
+        sort.style.color = "#5b5b5c"
+    });
+
+    // change available action color
+    let ths = document.querySelectorAll('th');
+    ths.forEach(th => {
+        if (th.innerText.includes('Available action')){
+            th.style.color = "#5b5b5c";
+        }
+        if (th.innerText.includes('Assign')){
+            th.style.display = "none"
+        }
     });
 
     // remove numbers from class title
@@ -268,6 +337,9 @@ function changeHomeStyle(){
         let dataHeading = tdItem.getAttribute('data-heading');
         if(dataHeading=="Class"){
             tdItem.innerText = tdItem.innerText.split("-")[0]
+        }
+        if(dataHeading=="Assign"){
+            tdItem.style.display = "none"
         }
     });
 }
