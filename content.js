@@ -1,7 +1,7 @@
 // Color theme
     // // dark mode
-    // var color1 = 'black'
-    // var color2 = 'black'
+    // var color1 = 'rgb(20, 20, 20)'
+    // var color2 = 'rgb(20, 20, 20)'
     // var color3 = 'white'
     // var color4= '#333'
     // var color5 = '#595959'
