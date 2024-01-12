@@ -2,9 +2,14 @@
   "manifest_version": 3,
  
   "name": "StudyStyle",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Restyle MySchoolApp Blackbaud",
- 
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage"
+  ],
   "content_scripts": [{
     "js": ["content.js"],
     "matches": ["https://*.myschoolapp.com/*"]

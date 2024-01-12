@@ -1,33 +1,116 @@
 // Color theme
     // // dark mode
-    // var color1 = 'rgb(20, 20, 20)'
-    // var color2 = 'rgb(20, 20, 20)'
-    // var color3 = 'white'
-    // var color4= '#333'
-    // var color5 = '#595959'
-    // var color6 = '#6989e0'
+    var color1 = 'rgb(20, 20, 20)'
+    var color2 = 'rgb(210, 210, 210)'
+    var color3 = 'white'
+    var color4= '#333'
+    var color5 = '#595959'
+    var color6 = '#6989e0'
+    var color7 = 'rgb(30, 30, 30)'
 
     // light mode
-    var color1 = 'white'
-    var color2 = 'white'
-    var color3 = 'black'
-    var color4 = '#f2f2f2'
-    var color5 = '#c8c8c8'
-    var color6 = '#6989e0'
-    var color7 = 'rgba(246, 246, 246)'
+    // var color1 = 'white'
+    // var color2 = 'rgb(30, 30, 30)'
+    // var color3 = 'black'
+    // var color4 = '#f2f2f2'
+    // var color5 = '#c8c8c8'
+    // var color6 = '#6989e0'
+    // var color7 = 'rgb(246, 246, 246)'
 
-const style = document.createElement('style');
-style.textContent = `
-    @font-face {
-        font-family: 'Geist';
-        src: url("https://pham.codes/d/GeistVF.woff2") format("woff2");
+function changeColors(color){
+    if (color) {
+        if (color === 'dark') {
+            color1 = 'rgb(20, 20, 20)'
+            color2 = 'rgb(210, 210, 210)'
+            color3 = 'white'
+            color4 = '#333'
+            color5 = '#595959'
+            color6 = '#6989e0'
+            color7 = 'rgb(30, 30, 30)'
+        } else if (color === 'light') {
+            color1 = 'white'
+            color2 = 'rgb(30, 30, 30)'
+            color3 = 'black'
+            color4 = '#f2f2f2'
+            color5 = '#c8c8c8'
+            color6 = '#6989e0'
+            color7 = 'rgb(246, 246, 246)'
+        }
     }
-`;
+}
 
-document.head.appendChild(style);
+// get the initial color scheme
+chrome.storage.sync.get(['colorScheme'], function (result) {
+    const userColorScheme = result.colorScheme;
+    changeColors(userColorScheme);
+});
+
+// apply style to page when color scheme is changed
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+    if (changes.colorScheme) {
+        changeColors(changes.colorScheme.newValue);
+        applyColorScheme();
+    }
+});
+
+// apply style to page when color scheme is changed
+function applyColorScheme(){
+    if (window.location.href.includes('student#studentmyday/assignment-center')){
+        changeConstantStyle()
+        changeHomeStyle()
+    } else if (window.location.href.includes('lms-assignment/assignment-center')){
+        changeConstantStyle()
+        changeNewAssignmentStyle()
+    }
+    else if (window.location.href.includes('schedule')){
+        changeConstantStyle()
+        changeScheduleStyle()
+    }
+    else if (window.location.href.includes('progress')){
+        changeConstantStyle()
+        changeProgressStyle()
+    }
+    else if (window.location.href.includes('bulletinboard')){
+        changeConstantStyle()
+        changeBulletinStyle()
+    }
+    else if (window.location.href.includes('topics')){
+        changeConstantStyle()
+        changeTopicsStyle()
+    }
+    else if (window.location.href.includes('topicdetail') || window.location.href.includes('newsdetail')){
+        changeConstantStyle()
+        changeTopicDetailsStyle()
+    }
+    else if (window.location.href.includes('resourceboard')){
+        changeConstantStyle()
+        changeResourceStyle()
+    }  
+    else if (window.location.href.includes('assignments')){
+        changeConstantStyle()
+        changeClassAssignmentsStyle()
+    }
+    else if (window.location.href.includes('roster') || window.location.href.includes('advisees')){
+        changeConstantStyle()
+        changeRosterStyle()
+    }
+    else if (window.location.href.includes('assignment-student-view')){
+        changeConstantStyle()
+        changeAssignmentsStyle()
+    }
+    else if (window.location.href.includes('Scoreboard') || window.location.href.includes('archive') || window.location.href.includes('activitystream') || window.location.href.includes('featuredcontent')){
+        changeConstantStyle()
+        changeNewsStyle()
+    }
+    else if (window.location.href.includes('directory')){
+        changeConstantStyle()
+        changeDirectoryStyle()
+    }
+}
 
 // CONSTANT STYLE ---------------------------------------------------------------------------------------------
 function changeConstantStyle(){
+
     // navbar buttons
     let hoverClasses = document.querySelectorAll(".subnavtrigger.black-fgc.sky-nav");
     let hoverGroup = document.querySelector("#group-header-Groups.subnavtrigger.black-fgc.sky-nav");
@@ -36,18 +119,40 @@ function changeConstantStyle(){
     let hoverCal = document.querySelector("#calendar-subnav.black-fgc.sky-nav");
     let hoverDirect = document.querySelector("#directory-subnav.subnavtrigger.black-fgc.sky-nav");
     hoverClasses.forEach(hoverClass => {
-        hoverClass.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, " + color2 + " 100%)";
+        hoverClass.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, " + color1 + " 100%)";
     })
     if (hoverGroup){
-        hoverGroup.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+        hoverGroup.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
     } if (hoverResources){
-        hoverResources.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+        hoverResources.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
     } if (hoverNews){ 
-        hoverNews.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+        hoverNews.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
     } if (hoverCal){
-        hoverCal.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+        hoverCal.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
     } if (hoverDirect){
-        hoverDirect.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+        hoverDirect.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
+    }
+
+    // bar color
+    let siteNavCont = document.getElementById("site-nav-container")
+    if (siteNavCont){
+        siteNavCont.style.backgroundColor = color1
+        siteNavCont.classList.remove("sec-15-bgc")
+    }
+
+    // bar subtext color
+    let subnavColors = document.querySelectorAll(".desc");
+    subnavColors.forEach(subnavColor => {
+        subnavColor.style.color = color3
+    })
+    if (subnavColors[10]){
+        subnavColors[10].style.lineHeight = '15px'
+    }
+    if (subnavColors[23]){
+        subnavColors[23].style.lineHeight = '15px'
+    }
+    if (subnavColors[46]){
+        subnavColors[46].style.lineHeight = '15px'
     }
     
     // body style
@@ -110,13 +215,13 @@ function changeConstantStyle(){
     // active color black on header buttons (eg. myday, resources, etc)
     let triggers = document.querySelectorAll('.subnavtrigger.black-fgc.sky-nav.active');
     triggers.forEach(trigger => {
-        trigger.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, " + color2 + " 100%)"
+        trigger.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, " + color1 + " 100%)"
     });
 
     let images = document.querySelectorAll('img');
-    images.forEach(image => {
-        image.style.borderRadius = '20px'
-    })
+    for (let i = 7; i < images.length; i++) {
+        images[i].style.borderRadius = '20px'
+    }
 
 }
 
@@ -198,11 +303,8 @@ function changeHomeStyle(){
       tile.style.color = color3;
     });
 
-    // make rows white and remove second row
+    // change row color
     const rows = document.querySelectorAll('.bb-action-bar');
-      if (rows.length >= 2){
-        rows[1].style.display = "none"
-      }
       rows.forEach(row => {
       row.style.paddingLeft = "20px";
       row.style.paddingRight = "20px";
@@ -212,6 +314,31 @@ function changeHomeStyle(){
       row.style.marginTop = '-40px'
       row.style.paddingBottom = '20px'
     });
+
+    // move new task button left
+    let newTasks = document.querySelectorAll('.pull-right');
+    newTasks.forEach(newTask => {
+        newTask.classList.remove('pull-right')
+    })
+    let newTaskButton = document.getElementById('add-task');
+    if (newTaskButton){
+        newTaskButton.style.marginLeft = '81vw'
+        newTaskButton.style.marginTop = '-55px'
+    }
+
+    // remove the useless sort buttons
+    let col4s = document.querySelectorAll('.col-md-4');
+    if (col4s){
+        col4s[1].style.display = 'none'
+    }
+    let filterStatus = document.getElementById('filter-status');
+    if (filterStatus){
+        filterStatus.style.display = 'none'
+    }
+    let filterClasses = document.getElementById('filter-student-sections');
+    if (filterClasses){
+        filterClasses.style.display = 'none'
+    }
 
     // round sortbar container
     let roundHeaders = document.querySelectorAll('.add-existing-items-header');
@@ -342,6 +469,33 @@ function changeHomeStyle(){
             tdItem.style.display = "none"
         }
     });
+
+    // change add task color
+    let addTasksHeaders = document.querySelectorAll('.modal-header, .modal-content, .modal-footer, input, select');
+    addTasksHeaders.forEach(addTasksHeader => {
+        addTasksHeader.style.backgroundColor = color1;
+        addTasksHeader.style.color = color3;
+    });
+}
+
+// NEW ASSIGNMENT CENTER ---------------------------------------------------------------------------------------------
+function changeNewAssignmentStyle(){
+    // remove lower navbar
+    let lowerBar = document.getElementById("site-nav-lower")
+    if (lowerBar){
+        lowerBar.style.display = "none"
+    }
+
+    // change colors
+    let elements = document.querySelectorAll('div, span, button, input, select')
+    for (let i = 160; i < elements.length; i++) {
+        if (!elements[i].classList.contains('sky-split-view-resize-handle')){
+            console.log(elements[i])
+            elements[i].style.color = color3
+            elements[i].style.backgroundColor = color1
+            elements[i].style.borderRadius = '10px'
+        }
+    }
 }
 
 // SCHEDULE ---------------------------------------------------------------------------------------------
@@ -490,6 +644,15 @@ function changeProgressStyle(){
     var gradePick = document.getElementById('gradeSelect');
     gradePick.style.border = 'none';
     gradePick.style.cursor = 'pointer';
+    gradePick.style.color = 'black';
+    gradePick.style.scale = '0.8';
+
+    // change color of absence background
+    let absenceBacks = document.querySelectorAll('.popContainerStraight');
+    absenceBacks.forEach(absenceBack => {
+        absenceBack.style.background = color1;
+    });
+
     // lower arrows for performance and attendance only
     const tools = document.querySelectorAll('.bb-tile-tools');
     for (let i = 0; i < 2; i++) {
@@ -549,7 +712,7 @@ function changeProgressStyle(){
     let assignmentDropdowns = document.querySelectorAll('.bb-tile-content-section.clearfix');
     assignmentDropdowns.forEach(dropdown => {
         dropdown.style.scale = '2'
-        dropdown.style.marginTop = '80px'
+        dropdown.style.marginTop = '130px'
         dropdown.style.marginLeft = '150px'
         dropdown.style.marginBottom = '-60px'
     })
@@ -642,6 +805,20 @@ function changeBulletinStyle(){
         section.style.borderRadius = '15px';
         section.style.boxShadow = '0px 0px 5px ' + color5;
         section.style.padding = '20px';
+        section.style.backgroundColor = color1;
+    });
+
+    // change color of heading
+    let headings = document.querySelectorAll('.section-heading');
+    headings.forEach(heading => {
+        heading.style.backgroundColor = color1;
+        heading.style.color = color3;
+    });
+
+    // change color of text
+    let texts = document.querySelectorAll('div');
+    texts.forEach(text => {
+        text.style.color = color2;
     });
 
     // remove numbers from title
@@ -653,6 +830,20 @@ function changeBulletinStyle(){
 
 // TOPICS --------------------------------------------------------------------------------------------- 
 function changeTopicsStyle(){
+    // change color of heading
+    let headings = document.querySelectorAll('.section-heading');
+    headings.forEach(heading => {
+        heading.style.backgroundColor = color1;
+        heading.style.color = color3;
+    });
+
+    // change color of text
+    let texts = document.querySelectorAll('div');
+    for (let i = 50; i < texts.length; i++) {
+        texts[i].style.color = color2;
+        texts[i].style.backgroundColor = color1;
+    }
+
     // remove border from images
     let images = document.querySelectorAll('.thumbnail');
     images.forEach(image => {
@@ -689,7 +880,23 @@ function changeTopicsStyle(){
     })
 }
 
-// TOPICS --------------------------------------------------------------------------------------------- 
+
+// TOPIC DETAILS ---------------------------------------------------------------------------------------------
+function changeTopicDetailsStyle(){
+    // change everything to black
+    let elements = document.querySelectorAll('div')
+    for (let i = 50; i < elements.length; i++) {
+        if (elements[i].innerText != "< Back"){
+            if (!elements[i].classList.contains('sky-split-view-resize-handle')){
+                elements[i].style.color = color3
+                elements[i].style.backgroundColor = color1
+                elements[i].style.borderRadius = '10px'
+            }
+        }
+    }
+}
+
+// RESOURCES --------------------------------------------------------------------------------------------- 
 function changeResourceStyle(){
     // remove line at top of assignment center
     const bbTileTitles = document.querySelectorAll('.bb-tile-title')
@@ -720,6 +927,7 @@ function changeResourceStyle(){
         tile.style.borderRadius = '20px'
         tile.style.borderRadius = '20px'
         tile.style.border = '1px solid ' + color4
+        tile.style.backgroundColor = color1
         tile.addEventListener('mouseenter', function(){
             tile.style.border = '1px solid rgb(123, 162, 224)'
             tile.style.boxShadow = '0px 0px 5px rgb(123, 162, 224)'
@@ -729,6 +937,12 @@ function changeResourceStyle(){
             tile.style.border = '1px solid ' + color4
         })
     });
+
+    // change container color
+    let tileConts = document.querySelectorAll('.bb-tile-content-section');
+    tileConts.forEach(tileCont => {
+        tileCont.style.background = color1
+    })
 
     // center tiles and make bigger
     let container = document.getElementById('board-container');
@@ -745,6 +959,19 @@ function changeClassAssignmentsStyle(){
     let titles = document.querySelectorAll('.bb-page-heading');
     titles.forEach(title => {
         title.innerText = title.innerText.split("-")[0]
+    });
+
+    // change color of heading
+    let headings = document.querySelectorAll('.section-heading');
+    headings.forEach(heading => {
+        heading.style.backgroundColor = color1;
+        heading.style.color = color3;
+    });
+
+    // change color of heading text
+    let headingTexts = document.querySelectorAll('.bb-page-heading');
+    headingTexts.forEach(heading => {
+        heading.style.color = color3;
     });
 
     // small outline and white background
@@ -796,6 +1023,19 @@ function changeClassAssignmentsStyle(){
         navTab.style.borderRadius = '20px'
         navTab.style.borderBottomRightRadius = '0px'
         navTab.style.borderBottomLeftRadius = '0px'
+        navTab.style.backgroundColor = color1
+    })
+
+    // change hover color
+    let navTabLinks = document.querySelectorAll('.status-filter-item');
+    navTabLinks.forEach(navTabLink => {
+        navTabLink.classList.remove('status-filter-item')
+        navTabLink.addEventListener('mouseenter', function(){
+            navTabLink.style.background = color1
+        })
+        navTabLink.addEventListener('mouseleave', function(){
+            navTabLink.style.background = color1
+        })
     })
 
     // move navtabs up
@@ -834,6 +1074,11 @@ function changeClassAssignmentsStyle(){
             tdItem.innerText = tdItem.innerText.split("-")[0]
         }
     });
+
+    let assignmentConts = document.querySelectorAll('.bb-tile-content-section');
+    assignmentConts.forEach(assignmentCont => {
+        assignmentCont.style.background = color1
+    })
 }
 
 // ROSTER --------------------------------------------------------------------------------------------- 
@@ -842,9 +1087,17 @@ window.onhashchange = function() { // every time roster is loaded make sure the 
     removed = false
 }
 function changeRosterStyle(){
+      // change color of heading
+    let headings = document.querySelectorAll('.section-heading');
+    headings.forEach(heading => {
+        heading.style.backgroundColor = color1;
+        heading.style.color = color3;
+    });
+
     // remove numbers from title
     let titles = document.querySelectorAll('.bb-page-heading');
     titles.forEach(title => {
+        title.style.color = color3;
         title.innerText = title.innerText.split("-")[0]
     });
 
@@ -852,6 +1105,7 @@ function changeRosterStyle(){
     let containers = document.querySelectorAll('.bb-card');
     containers.forEach(container => {
         container.style.borderRadius = '15px'
+        container.style.background = color1
     })
 
     // remove scrollbar
@@ -879,23 +1133,20 @@ function changeAssignmentsStyle(){
     let hoverCal = document.querySelector("#calendar-subnav.root-nav-item.black-fgc");
     let hoverDirect = document.querySelector("#directory-subnav.root-nav-item.black-fgc");
     hoverClasses.forEach(hoverClass => {
-        hoverClass.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, " + color2 + " 100%)";
+        hoverClass.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, " + color1 + " 100%)";
     })
     if (hoverGroup){
-        hoverGroup.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+        hoverGroup.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
     } if (hoverResources){
-        hoverResources.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+        hoverResources.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
     } if (hoverNews){ 
-        hoverNews.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+        hoverNews.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
     } if (hoverCal){
-        hoverCal.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+        hoverCal.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
     } if (hoverDirect){
-        hoverDirect.style.backgroundImage = "-webkit-linear-gradient(top, " + color2 +" 0%, "+ color2 +" 100%)";
+        hoverDirect.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
     }
-
-    // white bar
-    let siteNav = document.getElementById("site-nav-container")
-    siteNav.classList.remove("sec-15-bgc")
+    // siteNav.classList.remove("sec-15-bgc")
 
     // move buttons left
     let buttonBars = document.querySelectorAll('.topnav');
@@ -914,13 +1165,15 @@ function changeAssignmentsStyle(){
     boxes.forEach(box => { 
         box.style.padding = '0px'
         box.style.paddingTop = '10px'
+        box.style.background = color1
     })
 
-    // round sections
+    // round sections and background
     let sections = document.querySelectorAll('.sky-box');
     sections.forEach(section => {
         section.style.borderRadius = '20px'
         section.style.border = '0.25px solid #263f6f'
+        section.style.backgroundColor = color1
     })
 
     // shadow color
@@ -934,6 +1187,7 @@ function changeAssignmentsStyle(){
     heads.forEach(head => {
         head.style.borderBottom = 'none'
         head.style.paddingTop = '10px'
+        head.style.background = color1
     })
 }
 
@@ -943,6 +1197,18 @@ function changeNewsStyle(){
     if (navBar){
         navBar.style.display = "none"
     }
+
+    // change background color of news tiles
+    let tiles = document.querySelectorAll('.bb-tile-content.collapse.in, .bb-tile-title');
+    tiles.forEach(tile => {
+        tile.style.backgroundColor = color1
+    })
+
+    // Remove hover color
+    let hoverTiles = document.querySelectorAll('.featured-item');
+    hoverTiles.forEach(hoverTile => {
+        hoverTile.classList.remove('featured-item')
+    })
 }
 
 // DIRECTORY ---------------------------------------------------------------------------------------------
@@ -964,7 +1230,7 @@ function changeDirectoryStyle(){
     // active button color
     let activeButtons = document.querySelectorAll('.subnavbar .nav > .active > a');
     activeButtons.forEach(activeButton => {
-        activeButton.style.backgroundImage = 'linear-gradient(to bottom, ' + color2 + ' 0%, ' + color2 + ' 100%)';
+        activeButton.style.backgroundImage = 'linear-gradient(to bottom, ' + color1 + ' 0%, ' + color1 + ' 100%)';
     })
 
     // remove all fields button
@@ -978,60 +1244,92 @@ function changeDirectoryStyle(){
     bbTitles.forEach(bbTitle => {
         bbTitle.style.border = 'none'
     })
+
+    // change color of everything
+    let elements = document.querySelectorAll('div,.section-heading')
+    for (let i = 50; i < elements.length; i++) {
+        if (!elements[i].classList.contains('sky-split-view-resize-handle')){
+            elements[i].style.color = color3
+            elements[i].style.backgroundColor = color1
+            elements[i].style.borderRadius = '10px'
+        }
+    }
+    let listButton = document.getElementById('list-view-button');
+    if (listButton){
+        listButton.style.color = color3
+    }
+    let gridButton = document.getElementById('grid-view-button');
+    if (gridButton){
+        gridButton.style.color = color3
+    }
+    let personType = document.querySelectorAll('.select-directory-link');
+    personType.forEach(type => {
+        type.style.backgroundColor = color1
+        type.style.color = color3
+    })
+}
+
+
+// change style bnased on URL
+function changeURLStyle(mutation){
+    if (window.location.href.includes('student#studentmyday/assignment-center') && mutation.target.localName != 'td'){
+        changeConstantStyle()
+        changeHomeStyle()
+    } else if (window.location.href.includes('lms-assignment/assignment-center') && mutation.target.localName != 'td'){
+        changeConstantStyle()
+        changeNewAssignmentStyle()
+    }
+    else if (window.location.href.includes('schedule') && mutation.target.localName != 'td'){
+        changeConstantStyle()
+        changeScheduleStyle()
+    }
+    else if (window.location.href.includes('progress') && mutation.target.localName != 'td' && mutation.target.classList[0] != 'well'){
+        changeConstantStyle()
+        changeProgressStyle()
+    }
+    else if (window.location.href.includes('bulletinboard') && mutation.target.classList[0] != 'bb-page-heading'){
+        changeConstantStyle()
+        changeBulletinStyle()
+    }
+    else if (window.location.href.includes('topics') && mutation.target.classList[0] != 'bb-page-heading'){
+        changeConstantStyle()
+        changeTopicsStyle()
+    }
+    else if (window.location.href.includes('topicdetail') || window.location.href.includes('newsdetail')){
+        changeConstantStyle()
+        changeTopicDetailsStyle()
+    }
+    else if (window.location.href.includes('resourceboard') && mutation.target.classList[0] != 'bb-tile-header'){
+        changeConstantStyle()
+        changeResourceStyle()
+    }  
+    else if (window.location.href.includes('assignments') && mutation.target.classList[0] != 'bb-page-heading'){
+        changeConstantStyle()
+        changeClassAssignmentsStyle()
+    }
+    else if (window.location.href.includes('roster') && mutation.target.classList[0] != 'bb-page-heading' || window.location.href.includes('advisees') && mutation.target.classList[0] != 'bb-page-heading'){
+        changeConstantStyle()
+        changeRosterStyle()
+    }
+    else if (window.location.href.includes('assignment-student-view') && mutation.target.classList[0] != 'bb-tile-header'){
+        changeConstantStyle()
+        changeAssignmentsStyle()
+    }
+    else if (window.location.href.includes('Scoreboard') || window.location.href.includes('archive') || window.location.href.includes('activitystream') || window.location.href.includes('featuredcontent')){
+        changeConstantStyle()
+        changeNewsStyle()
+    }
+    else if (window.location.href.includes('directory')){
+        changeConstantStyle()
+        changeDirectoryStyle()
+    }
 }
 
 // when page loads
 function observeMutations(mutationsList, observer) {
     mutationsList.forEach(mutation => {
-        if (window.location.href.includes('assignment-center') && mutation.target.localName != 'td'){
-            changeConstantStyle()
-            changeHomeStyle()
-        }
-        else if (window.location.href.includes('schedule') && mutation.target.localName != 'td'){
-            changeConstantStyle()
-            changeScheduleStyle()
-        }
-        else if (window.location.href.includes('progress') && mutation.target.localName != 'td' && mutation.target.classList[0] != 'well'){
-            changeConstantStyle()
-            changeProgressStyle()
-        }
-        else if (window.location.href.includes('bulletinboard') && mutation.target.classList[0] != 'bb-page-heading'){
-            changeConstantStyle()
-            changeBulletinStyle()
-        }
-        else if (window.location.href.includes('topics') && mutation.target.classList[0] != 'bb-page-heading'){
-            changeConstantStyle()
-            changeTopicsStyle()
-        }
-        else if (window.location.href.includes('resourceboard') && mutation.target.classList[0] != 'bb-tile-header'){
-            changeConstantStyle()
-            changeResourceStyle()
-        }  
-        else if (window.location.href.includes('assignments') && mutation.target.classList[0] != 'bb-page-heading'){
-            changeConstantStyle()
-            changeClassAssignmentsStyle()
-        }
-        else if (window.location.href.includes('roster') && mutation.target.classList[0] != 'bb-page-heading'){
-            changeConstantStyle()
-            changeRosterStyle()
-        }
-        else if (window.location.href.includes('assignment-student-view') && mutation.target.classList[0] != 'bb-tile-header'){
-            changeConstantStyle()
-            changeAssignmentsStyle()
-        }
-        else if (window.location.href.includes('Scoreboard') || window.location.href.includes('archive') || window.location.href.includes('activitystream') || window.location.href.includes('featuredcontent')){
-            changeConstantStyle()
-            changeNewsStyle()
-        }
-        else if (window.location.href.includes('directory')){
-            changeConstantStyle()
-            changeDirectoryStyle()
-        }
+        changeURLStyle(mutation)
     });
-}
-
-Window.onload = function() {
-    console.log(window.location.href)
 }
 
 
