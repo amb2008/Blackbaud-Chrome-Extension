@@ -1,21 +1,12 @@
 // Color theme
-    // // dark mode
-    var color1 = 'rgb(20, 20, 20)'
-    var color2 = 'rgb(210, 210, 210)'
-    var color3 = 'white'
-    var color4= '#333'
-    var color5 = '#595959'
-    var color6 = '#6989e0'
-    var color7 = 'rgb(30, 30, 30)'
-
     // light mode
-    // var color1 = 'white'
-    // var color2 = 'rgb(30, 30, 30)'
-    // var color3 = 'black'
-    // var color4 = '#f2f2f2'
-    // var color5 = '#c8c8c8'
-    // var color6 = '#6989e0'
-    // var color7 = 'rgb(246, 246, 246)'
+    var color1 = 'white'
+    var color2 = 'rgb(30, 30, 30)'
+    var color3 = 'black'
+    var color4 = '#f2f2f2'
+    var color5 = '#c8c8c8'
+    var color6 = '#6989e0'
+    var color7 = 'rgb(246, 246, 246)'
 
 function changeColors(color){
     if (color) {
@@ -35,6 +26,38 @@ function changeColors(color){
             color5 = '#c8c8c8'
             color6 = '#6989e0'
             color7 = 'rgb(246, 246, 246)'
+        } else if (color === 'pink') {
+            color1 = 'rgb(255, 224, 222)'
+            color2 = 'rgb(30, 30, 30)'
+            color3 = 'rgb(125, 57, 52)'
+            color4 = '#f2f2f2'
+            color5 = 'rgb(130, 23, 23)'
+            color6 = '#6989e0'
+            color7 = 'rgb(255, 229, 227)'
+        } else if (color === 'blue') {
+            color1 = 'rgb(222, 235, 255)'
+            color2 = 'rgb(30, 30, 30)'
+            color3 = 'rgb(52, 97, 125)'
+            color4 = '#f2f2f2'
+            color5 = 'rgb(23, 60, 130)'
+            color6 = '#6989e0'
+            color7 = 'rgb(227, 234, 255)'
+        } else if (color === 'green') {
+            color1 = 'rgb(222, 255, 229)'
+            color2 = 'rgb(30, 30, 30)'
+            color3 = 'rgb(52, 125, 57)'
+            color4 = '#f2f2f2'
+            color5 = 'rgb(23, 130, 23)'
+            color6 = '#6989e0'
+            color7 = 'rgb(227, 255, 234)'
+        } else if (color === 'purple') {
+            color1 = 'rgb(235, 222, 255)'
+            color2 = 'rgb(30, 30, 30)'
+            color3 = 'rgb(97, 52, 125)'
+            color4 = '#f2f2f2'
+            color5 = 'rgb(60, 23, 130)'
+            color6 = '#6989e0'
+            color7 = 'rgb(234, 227, 255)'
         }
     }
 }
@@ -189,7 +212,7 @@ function changeConstantStyle(){
     // button style
     const buttons = document.querySelectorAll('.btn-default');
     buttons.forEach(button => {
-      button.style.backgroundColor = color1;
+      button.style.backgroundColor = 'transparent';
       button.style.borderRadius = '10px';
       button.style.border = '1px solid ' + color5;
       button.style.color = color3; 
@@ -199,13 +222,13 @@ function changeConstantStyle(){
         button.style.backgroundColor = color4;
       })
       button.addEventListener('mouseleave', function(){
-        button.style.backgroundColor = color1;
+        button.style.backgroundColor = 'transparent';
       })
     });
     const buttonsActive = document.querySelectorAll('.btn.active');
     buttonsActive.forEach(button => {
       button.style.boxShadow = 'none';
-      button.style.backgroundColor = color4;
+      button.style.backgroundColor = 'transparent';
     });
 
     // top bar black
@@ -395,10 +418,10 @@ function changeHomeStyle(){
         status.style.transition = '0.2s';
         status.style.textDecoration = 'none';
         status.addEventListener('mouseenter', function(){
-            status.style.backgroundColor = color4;
+            status.style.background = color4;
         })
         status.addEventListener('mouseleave', function(){
-            status.style.backgroundColor = color1;
+            status.style.background = 'transparent';
         })
     });
 
@@ -444,14 +467,14 @@ function changeHomeStyle(){
     // sort text color
     let sorts = document.querySelectorAll(".assignment-table-sort.muted, .assignment-table-sort.sort-active");
     sorts.forEach(sort => {
-        sort.style.color = "#5b5b5c"
+        sort.style.color = color2
     });
 
     // change available action color
     let ths = document.querySelectorAll('th');
     ths.forEach(th => {
         if (th.innerText.includes('Available action')){
-            th.style.color = "#5b5b5c";
+            th.style.color = color2;
         }
         if (th.innerText.includes('Assign')){
             th.style.display = "none"
@@ -793,6 +816,19 @@ function changeProgressStyle(){
     icons.forEach(icon => {
         icon.style.color = "#007ca6"
     });
+        
+    // change color of grade detail popup
+    let statusChangers = document.querySelectorAll('.modal-header, th, td, .modal-footer, .modal-body, .row, text');
+    statusChangers.forEach(statusChanger => {
+        statusChanger.style.backgroundColor = color1
+        statusChanger.style.color = color3
+    })
+    let texts = document.querySelectorAll('text');
+    texts.forEach(text => {
+        if (color1 != 'white'){
+            text.style.filter = 'invert(1)'
+        }
+    })
 }
 
 // BULLETIN BOARD --------------------------------------------------------------------------------------------- 
@@ -1188,6 +1224,12 @@ function changeAssignmentsStyle(){
         head.style.borderBottom = 'none'
         head.style.paddingTop = '10px'
         head.style.background = color1
+    })
+
+    // change color of status changer popup 
+    let statusChangers = document.querySelectorAll('.sky-modal-header, .sky-modal-content, .sky-modal-footer-container');
+    statusChangers.forEach(statusChanger => {
+        statusChanger.style.backgroundColor = color1
     })
 }
 
