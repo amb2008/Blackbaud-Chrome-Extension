@@ -274,8 +274,8 @@ function changeHomeStyle(){
        assignmentHeader.style.fontWeight = "320"
        if (date.innerText){ // check if there is a date so it so the top can be adjusted
             assignmentHeader.style.marginBottom = "-20px"
-            date.style.marginTop = "9px"
-            date.style.fontSize = "24px"
+            date.style.marginTop = "10px"
+            date.style.fontSize = "28px"
             date.style.paddingLeft = "2px"
             date.style.fontWeight = "300"
        }
@@ -825,7 +825,7 @@ function changeProgressStyle(){
     })
     let texts = document.querySelectorAll('text');
     texts.forEach(text => {
-        if (color1 != 'white'){
+        if (color1 == 'rgb(20, 20, 20)'){
             text.style.filter = 'invert(1)'
         }
     })
@@ -1304,7 +1304,7 @@ function changeDirectoryStyle(){
     if (gridButton){
         gridButton.style.color = color3
     }
-    let personType = document.querySelectorAll('.select-directory-link');
+    let personType = document.querySelectorAll('.select-directory-link, td, input');
     personType.forEach(type => {
         type.style.backgroundColor = color1
         type.style.color = color3
