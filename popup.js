@@ -14,11 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Save the selected color scheme to storage when the button is clicked
     savePreferencesButton.addEventListener('click', function () {
         const selectedColorScheme = colorSchemeSelect.value;
-
         // Save the color scheme preference to storage
         chrome.storage.sync.set({ colorScheme: selectedColorScheme }, function () {
             console.log('Color scheme preference saved:', selectedColorScheme);
         });
-        location.reload();
     });
 });

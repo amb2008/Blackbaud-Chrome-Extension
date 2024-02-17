@@ -13,13 +13,24 @@
     var progressColor = 'rgb(251, 184, 95)'
     var doneColor = 'rgb(93, 168, 95)'
     var topBarColor = 'rgb(108, 145, 197)'
+    var theme = 'light'
+
+setTimeout(function(){
+    if (theme === 'pink'){
+        let texts = document.querySelectorAll("span.desc");
+        texts.forEach(text => {
+            text.innerText = text.innerText + " 🎀";
+        })
+    }
+}, 1000)
 
 function changeColors(color){
     if (color) {
         if (color === 'dark') {
+            theme = 'dark'
             color1 = 'rgb(26, 26, 26)'
             color2 = 'rgb(210, 210, 210)'
-            color3 = 'white'
+            color3 = 'rgb(200, 200, 200)'
             color4 = '#333'
             color5 = '#595959'
             color6 = '#6989e0'
@@ -29,6 +40,7 @@ function changeColors(color){
             doneColor = 'rgba(41, 150, 75, 0.9)'
             topBarColor = 'black'
         } else if (color === 'light') {
+            theme = 'light'
             color1 = 'white'
             color2 = 'rgb(30, 30, 30)'
             color3 = 'black'
@@ -37,6 +49,7 @@ function changeColors(color){
             color6 = '#6989e0'
             color7 = 'rgb(246, 246, 246)'
         } else if (color === 'pink') {
+            theme = 'pink'
             color1 = 'rgb(250, 248, 245)'
             color2 = 'rgb(30, 30, 30)'
             color3 = 'rgb(138, 14, 75)'
@@ -48,6 +61,7 @@ function changeColors(color){
             doneColor = 'rgb(235, 127, 170)'
             topBarColor = 'rgb(240, 216, 238)'
         } else if (color === 'blue') {
+            theme = 'blue'
             color1 = 'rgb(222, 235, 255)'
             color2 = 'rgb(30, 30, 30)'
             color3 = 'rgb(52, 97, 125)'
@@ -56,6 +70,7 @@ function changeColors(color){
             color6 = '#6989e0'
             color7 = 'rgb(227, 234, 255)'
         } else if (color === 'green') {
+            theme = 'green'
             color1 = 'rgb(222, 255, 229)'
             color2 = 'rgb(30, 30, 30)'
             color3 = 'rgb(52, 125, 57)'
@@ -64,6 +79,7 @@ function changeColors(color){
             color6 = '#6989e0'
             color7 = 'rgb(227, 255, 234)'
         } else if (color === 'purple') {
+            theme = 'purple'
             color1 = 'rgb(235, 222, 255)'
             color2 = 'rgb(30, 30, 30)'
             color3 = 'rgb(97, 52, 125)'
@@ -84,6 +100,7 @@ chrome.storage.sync.get(['colorScheme'], function (result) {
 
 // apply style to page when color scheme is changed
 chrome.storage.onChanged.addListener(function (changes, namespace) {
+    location.reload();
     if (changes.colorScheme) {
         changeColors(changes.colorScheme.newValue);
         applyColorScheme();
@@ -170,6 +187,23 @@ function changeConstantStyle(){
         hoverDirect.style.backgroundImage = "-webkit-linear-gradient(top, " + color1 +" 0%, "+ color1 +" 100%)";
     }
 
+    // change background color of dropdowns
+    if (theme === 'dark'){
+        let dropdowns = document.querySelectorAll(".subnav.sec-75-bordercolor.white-bgc.sky-nav, .subnav.sec-75-bordercolor.white-bgc.sky-nav.subnav-multicol, .subnav.white-bgc.sec-75-bordercolor.subnav-multicol, .subnav");
+        dropdowns.forEach(dropdown => {
+            dropdown.style.backgroundColor = color1 + " !important"
+            dropdown.style.filter = "invert(1)"
+        })
+    }
+
+    // change color of profile dropdown
+    let profileDropdowns = document.querySelectorAll(".subnav.pri-75-bordercolor.white-bgc.gray-nav-boxshadow.sky-nav");
+    profileDropdowns.forEach(profileDropdown => {
+        // profileDropdown.style.backgroundColor = "black !important"
+        profileDropdown.setAttribute('style', 'background-color:' + color1 + ' !important');
+    })
+
+
     // change link color
     let links = document.querySelectorAll("a, button");
     links.forEach(link => {
@@ -253,7 +287,9 @@ function changeConstantStyle(){
 
     // top bar black
     let siteNav = document.getElementById("site-nav")
-    siteNav.style.backgroundColor = color1
+    if (siteNav){
+        siteNav.style.backgroundColor = color1
+    }
 
     // active color black on header buttons (eg. myday, resources, etc)
     let triggers = document.querySelectorAll('.subnavtrigger.black-fgc.sky-nav.active');
@@ -306,12 +342,14 @@ function changeHomeStyle(){
     assignmentHeaders.forEach(assignmentHeader => {
        assignmentHeader.style.fontSize = "36px"
        assignmentHeader.style.fontWeight = "320"
-       if (date.innerText){ // check if there is a date so it so the top can be adjusted
-            assignmentHeader.style.marginBottom = "-5px"
-            date.style.marginTop = "10px"
-            date.style.fontSize = "28px"
-            date.style.paddingLeft = "2px"
-            date.style.fontWeight = "300"
+       if (date){
+        if (date.innerText){ // check if there is a date so it so the top can be adjusted
+                assignmentHeader.style.marginBottom = "-5px"
+                date.style.marginTop = "10px"
+                date.style.fontSize = "28px"
+                date.style.paddingLeft = "2px"
+                date.style.fontWeight = "300"
+        }
        }
     });
 
@@ -385,7 +423,7 @@ function changeHomeStyle(){
 
     // remove the useless sort buttons
     let col4s = document.querySelectorAll('.col-md-4');
-    if (col4s){
+    if (col4s[1]){
         col4s[1].style.display = 'none'
     }
     let filterStatus = document.getElementById('filter-status');
@@ -515,15 +553,27 @@ function changeHomeStyle(){
         }
     });
 
-    // remove numbers from class title
+    // remove numbers from class title and change border color
     let tds = document.querySelectorAll('td');
     tds.forEach(tdItem => {
         let dataHeading = tdItem.getAttribute('data-heading');
+        let role = tdItem.getAttribute('role');
+        if (role == "gridcell" || role == "presentation"){
+            tdItem.style.border = '1px solid ' + color5;
+        }
         if(dataHeading=="Class"){
             tdItem.innerText = tdItem.innerText.split("-")[0]
         }
         if(dataHeading=="Assign"){
             tdItem.style.display = "none"
+        }
+    });
+
+    // change color of table border
+    let tables = document.querySelectorAll('table');
+    tables.forEach(table => {
+        if (table.getAttribute('role') == "grid"){
+            table.style.border = '1px solid ' + color5;
         }
     });
 
@@ -535,8 +585,9 @@ function changeHomeStyle(){
     });
 
     // change grid item color
-    let doneGrids = document.querySelectorAll('.fc-day-grid-event.fc-h-event.fc-event.fc-start.fc-end');
+    let doneGrids = document.querySelectorAll('.fc-day-grid-event.fc-h-event.fc-event.fc-start.fc-end, .fc-event-main');
     doneGrids.forEach(doneGrid => {
+        console.log(doneGrid)
         doneGrid.style.backgroundColor = color4;
         doneGrid.style.border = 'none';
         doneGrid.style.margin = '5px';
@@ -555,6 +606,24 @@ function changeHomeStyle(){
             // doneGrid.style.opacity = '1';
         })
     });
+
+    // change grid item border color
+    let doneGridsBorder = document.querySelectorAll('.fc-event.fc-event-start.fc-event-end.fc-event-future.fc-daygrid-event.fc-daygrid-block-event.fc-h-event.calendar-assignment, .fc-event');
+    doneGridsBorder.forEach(doneGridBorder => {
+        console.log(doneGridBorder)
+        doneGridBorder.style.background = color1;
+        doneGridBorder.style.border = 'none';
+        doneGridBorder.style.padding = '0px';
+        // doneGridBorder.setAttribute('style', 'padding: 0px !important');
+    });
+
+    // change color of grid columns
+    let doneGridsColumns = document.querySelectorAll('.fc-daygrid-day-frame.fc-scrollgrid-sync-inner');
+    doneGridsColumns.forEach(doneGridColumn => {
+        doneGridColumn.style.backgroundColor = color1;
+        doneGridColumn.style.paddingBottom = '200px';
+    });
+
     // extend table
     let table = document.querySelectorAll(".fc-day-grid.fc-unselectable");
     table.forEach(table => {
@@ -606,7 +675,7 @@ function changeScheduleStyle(){
     const trs = document.querySelectorAll('tr');
     trs.forEach(tr => {
         tr.style.backgroundColor = color1;
-        tr.style.borderBottom = '1px solid #f2f2f2';
+        tr.style.borderBottom = '1px solid ' + color4;
     });
 
 
@@ -1471,6 +1540,11 @@ function changeURLStyle(mutation){
     else if (window.location.href.includes('directory')){
         changeConstantStyle()
         changeDirectoryStyle()
+    } else if (window.location.href.includes('student#login')){
+        let cols = document.querySelectorAll('.col-md-12');
+        cols.forEach(col => {
+            col.style.backgroundColor = 'transparent'
+        })
     }
 }
 
