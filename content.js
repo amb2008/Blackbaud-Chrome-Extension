@@ -39,6 +39,7 @@ function changeColors(color){
             todoColor = 'rgba(122, 90, 245, 0.9)'
             doneColor = 'rgba(41, 150, 75, 0.9)'
             topBarColor = 'black'
+            background = color1
         } else if (color === 'light') {
             theme = 'light'
             color1 = 'white'
@@ -48,9 +49,10 @@ function changeColors(color){
             color5 = '#c8c8c8'
             color6 = '#6989e0'
             color7 = 'rgb(246, 246, 246)'
+            background = color1
         } else if (color === 'pink') {
             theme = 'pink'
-            color1 = 'rgb(250, 248, 245)'
+            color1 = 'rgb(250, 248, 245, 0.6)'
             color2 = 'rgb(30, 30, 30)'
             color3 = 'rgb(138, 14, 75)'
             color4 = '#f2f2f2'
@@ -58,8 +60,10 @@ function changeColors(color){
             color6 = '#6989e0'
             color7 = 'rgb(242, 218, 226)'
             color8 = 'rgb(189, 23, 104)'
-            doneColor = 'rgb(235, 127, 170)'
+            todoColor = 'rgb(235, 127, 170)'
+            doneColor = 'rgb(265, 167, 200)'
             topBarColor = 'rgb(240, 216, 238)'
+            background = 'url(https://i.pinimg.com/736x/b5/46/87/b546877de88ad9a991aa5356a9848620.jpg)'
         } else if (color === 'blue') {
             theme = 'blue'
             color1 = 'rgb(222, 235, 255)'
@@ -233,7 +237,7 @@ function changeConstantStyle(){
     }
 
     // body style
-    document.body.style.backgroundColor = color1;
+    document.body.style.background = background;
     document.body.style.color = color3;
     document.body.style.overflowX = 'hidden';
 
